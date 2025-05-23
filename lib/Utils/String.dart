@@ -60,7 +60,7 @@ class provider {
   static const String ratings = "181 ratings on Google";
   static const String fortwo = "for two";
   static const String Benefits = 'Benefits';
-  static const String Location = "Location, timings & menu";
+  static const String Location = "Menu";
   static const String shopno =
       'shop no.29,30,31,gr.fl.,laxmi enclave-2,opp.gajera school,katargam,surat.,';
   static const String Surat = 'Surat City, Surat Municipal Corporation, Gujrat';

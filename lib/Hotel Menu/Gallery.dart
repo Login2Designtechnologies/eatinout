@@ -71,8 +71,7 @@ class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
               width: Get.width * 0.30,
               child: Text(
                 provider.viewmenu.tr,
-                style: TextStyle(
-                    fontSize: 16, color: WhiteColor, fontFamily: "Gilroy Bold"),
+                style: TextStyle(fontSize: 16, color: WhiteColor, fontFamily: "Gilroy Bold"),
               ),
             ),
           ),
@@ -85,89 +84,79 @@ class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
           elevation: 0,
           title: Text(
             "Gallery".tr,
-            style: TextStyle(
-                fontFamily: "Gilroy Bold",
-                fontSize: 18,
-                color: notifier.textColor),
+            style: TextStyle(fontFamily: "Gilroy Bold", fontSize: 18, color: notifier.textColor),
           )),
       body: GetBuilder<GalleryController>(builder: (context) {
         return gallery.isLoading
-            ? Column(
-                children: [
-                  SizedBox(
-                    height: Get.height * 0.05,
-                    child: ListView.builder(
-                      itemExtent: 150,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: gallery.gallerydatas?.gallerydata.length,
-                      // padding: const EdgeInsets.only(left: 30),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            gallery.changeindex(index);
+            ? (gallery.gallerydatas?.gallerydata ?? []).isEmpty
+                ? SizedBox.shrink()
+                : Column(
+                    children: [
+                      SizedBox(
+                        height: Get.height * 0.05,
+                        child: ListView.builder(
+                          itemExtent: 150,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: (gallery.gallerydatas?.gallerydata ?? []).length,
+                          // padding: const EdgeInsets.only(left: 30),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                gallery.changeindex(index);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  gallery.gallerydatas!.gallerydata[index].title,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: "Gilroy Bold",
+                                      fontSize: 16,
+                                      color: gallery.currentindex == index ? orangeColor : notifier.textColor),
+                                ),
+                              ),
+                            );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              gallery.gallerydatas!.gallerydata[index].title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: "Gilroy Bold",
-                                  fontSize: 16,
-                                  color: gallery.currentindex == index
-                                      ? orangeColor
-                                      : notifier.textColor),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(height: Get.height * 0.02),
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 6,
-                    childAspectRatio: (1.6),
-                    shrinkWrap: true,
-                    children: List.generate(
-                        gallery.gallerydatas!.gallerydata[gallery.currentindex]
-                            .imglist.length, (index) {
-                      return InkWell(
-                        onTap: () {
-                          Get.to(
-                            PhotoViewPage(
-                              photos: gallery.gallerydatas!
-                                  .gallerydata[gallery.currentindex].imglist,
-                              index: index,
+                        ),
+                      ),
+                      SizedBox(height: Get.height * 0.02),
+                      GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 6,
+                        mainAxisSpacing: 6,
+                        childAspectRatio: (1.6),
+                        shrinkWrap: true,
+                        children: List.generate(gallery.gallerydatas!.gallerydata[gallery.currentindex].imglist.length, (index) {
+                          return InkWell(
+                            onTap: () {
+                              Get.to(
+                                PhotoViewPage(
+                                  photos: gallery.gallerydatas!.gallerydata[gallery.currentindex].imglist,
+                                  index: index,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              color: transparent,
+                              child: FadeInImage.assetNetwork(
+                                fadeInCurve: Curves.easeInCirc,
+                                placeholder: "assets/ezgif.com-crop.gif",
+                                height: 160,
+                                width: 130,
+                                placeholderCacheHeight: 160,
+                                placeholderCacheWidth: 130,
+                                placeholderFit: BoxFit.fill,
+                                // placeholderScale: 1.0,
+                                image: AppUrl.imageurl + gallery.gallerydatas!.gallerydata[gallery.currentindex].imglist[index],
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           );
-                        },
-                        child: Container(
-                          color: transparent,
-                          child: FadeInImage.assetNetwork(
-                            fadeInCurve: Curves.easeInCirc,
-                            placeholder: "assets/ezgif.com-crop.gif",
-                            height: 160,
-                            width: 130,
-                            placeholderCacheHeight: 160,
-                            placeholderCacheWidth: 130,
-                            placeholderFit: BoxFit.fill,
-                            // placeholderScale: 1.0,
-                            image: AppUrl.imageurl +
-                                gallery
-                                    .gallerydatas!
-                                    .gallerydata[gallery.currentindex]
-                                    .imglist[index],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-                ],
-              )
+                        }),
+                      ),
+                    ],
+                  )
             : Center(
                 child: Padding(
                 padding: EdgeInsets.only(top: Get.height * 0.4),
@@ -234,8 +223,7 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
             ),
           ),
           minScale: PhotoViewComputedScale.covered,
-          heroAttributes: PhotoViewHeroAttributes(
-              tag: "${AppUrl.imageurl}${widget.photos[index]}"),
+          heroAttributes: PhotoViewHeroAttributes(tag: "${AppUrl.imageurl}${widget.photos[index]}"),
         ),
         pageController: PageController(initialPage: widget.index),
         enableRotation: false,

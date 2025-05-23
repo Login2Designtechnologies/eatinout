@@ -30,3 +30,4 @@ Color cyan = const Color(0xff008B8B);
 Color greentext = const Color(0xff549227);
 Color lightblue = const Color(0xff89cff0);
 Color greytext = const Color(0xff97A2B0);
+const borderGray = Color(0xFF4B4B4B);

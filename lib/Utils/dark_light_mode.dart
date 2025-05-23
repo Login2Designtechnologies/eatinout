@@ -13,4 +13,5 @@ class ColorNotifier with ChangeNotifier {
   get textColor => _isDark ? WhiteColor : BlackColor;
   get textLightColor => _isDark ? WhiteColor : Colors.grey;
   get containerColor => _isDark ? boxcolor : GreyColor;
+  get borderColor => _isDark ? borderGray : GreyColor;
 }

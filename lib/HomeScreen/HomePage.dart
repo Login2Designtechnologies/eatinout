@@ -29,6 +29,7 @@ import 'package:dineout/LoginFlow/Login_In.dart';
 import 'package:dineout/Profile/Profile.dart';
 import 'package:dineout/Search/screens/search_screen.dart';
 import 'package:dineout/Search/widgets/search_field.dart';
+
 // import 'package:dineout/Utils/Bottom_bar.dart';
 import 'package:dineout/Utils/Colors.dart';
 import 'package:dineout/Utils/Custom_widegt.dart';
@@ -59,6 +60,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 // import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -120,11 +122,13 @@ class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final _card = PaymentCardCreated();
   var numberController = TextEditingController();
+
   // late Razorpay _razorpay;
 
   // final plugin = PaystackPlugin();
   PaystackController paystackCont = Get.put(PaystackController());
   HomeController hData = Get.put(HomeController());
+
   // LocationController locationController = Get.put(LocationController());
 
   PlanpurchaseController planpurchase = Get.put(PlanpurchaseController());
@@ -134,6 +138,7 @@ class _HomePageState extends State<HomePage> {
   String? accessToken = "";
   String payerID = "";
   String totelbill = "0";
+
   @override
   void initState() {
     super.initState();
@@ -167,6 +172,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   late ColorNotifier notifier;
+
   // BottomBarController bottomBarController = Get.put(BottomBarController());
   @override
   Widget build(BuildContext context) {
@@ -225,10 +231,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Text(
                     "D",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: orangeColor),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: orangeColor),
                   ),
                 ),
               ),
@@ -246,10 +249,7 @@ class _HomePageState extends State<HomePage> {
           ],
           leading: InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LocationOptionPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LocationOptionPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 14),
@@ -270,20 +270,18 @@ class _HomePageState extends State<HomePage> {
                       width: Get.width * 0.64,
                       child: Text(
                         "My Place",
-                        style: TextStyle(
-                            fontFamily: "Gilroy Bold",
-                            color: notifier.textColor,
-                            fontSize: 15),
+                        style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 15),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Text(
-                      "${hData.userAddress}",
-                      style: TextStyle(
-                          fontFamily: "Gilroy Bold",
-                          color: notifier.textLightColor,
-                          fontSize: 13),
-                      overflow: TextOverflow.ellipsis,
+                    SizedBox(
+                      width: Get.width * 0.64,
+                      child: Text(
+                        "${hData.userAddress}",
+                        style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textLightColor, fontSize: 13),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),
@@ -320,11 +318,7 @@ class _HomePageState extends State<HomePage> {
                                 showSearchIcon: true,
                                 readOnly: true,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SearchScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
                                 },
                               ),
                             ),
@@ -353,8 +347,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 "IN THE LIMELIGHT",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.grey, letterSpacing: 2),
+                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -365,8 +358,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 "WHAT ARE YOU LOOKING FOR?",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.grey, letterSpacing: 2),
+                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -376,8 +368,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 "Must tries Deals".toUpperCase(),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.grey, letterSpacing: 2),
+                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -392,9 +383,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        for (var i = 0;
-                                            i < hData.dealsCateList.length;
-                                            i++)
+                                        for (var i = 0; i < hData.dealsCateList.length; i++)
                                           MustTryItem(
                                             data: hData.dealsCateList[i],
                                             imageUrl:
@@ -409,16 +398,8 @@ class _HomePageState extends State<HomePage> {
                             Membership
                                 ? Column(
                                     children: [
-                                      Text(provider.saved.tr,
-                                          style: TextStyle(
-                                              color: orangeColor,
-                                              fontFamily: "Gilroy ExtraBold",
-                                              fontSize: 20)),
-                                      Text(provider.days.tr,
-                                          style: TextStyle(
-                                              color: greycolor,
-                                              fontFamily: "Gilroy Bold",
-                                              fontSize: 16)),
+                                      Text(provider.saved.tr, style: TextStyle(color: orangeColor, fontFamily: "Gilroy ExtraBold", fontSize: 20)),
+                                      Text(provider.days.tr, style: TextStyle(color: greycolor, fontFamily: "Gilroy Bold", fontSize: 16)),
                                       SizedBox(height: Get.height * 0.02),
                                       InkWell(
                                         onTap: () {
@@ -428,30 +409,19 @@ class _HomePageState extends State<HomePage> {
                                           width: Get.width * 0.32,
                                           height: Get.height * 0.05,
                                           decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: greycolor
-                                                      .withOpacity(0.5)),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                    width: Get.width * 0.026),
-                                                Text(
-                                                  provider.view.tr,
-                                                  style: TextStyle(
-                                                      fontFamily: "Gilroy Bold",
-                                                      color: notifier.textColor,
-                                                      fontSize: 14),
-                                                ),
-                                                Icon(
-                                                  Icons.keyboard_arrow_right,
-                                                  size: 20,
-                                                  color: notifier.textColor,
-                                                )
-                                              ]),
+                                              border: Border.all(color: greycolor.withOpacity(0.5)), borderRadius: BorderRadius.circular(30)),
+                                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                            SizedBox(width: Get.width * 0.026),
+                                            Text(
+                                              provider.view.tr,
+                                              style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 14),
+                                            ),
+                                            Icon(
+                                              Icons.keyboard_arrow_right,
+                                              size: 20,
+                                              color: notifier.textColor,
+                                            )
+                                          ]),
                                         ),
                                       ),
                                       SizedBox(height: Get.height * 0.02),
@@ -460,19 +430,12 @@ class _HomePageState extends State<HomePage> {
                                           SizedBox(width: Get.width * 0.05),
                                           Container(
                                             height: Get.height * 0.04,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 6, vertical: 6),
+                                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                                             width: Get.width * 0.2,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                color: RedColor),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: RedColor),
                                             child: Center(
                                               child: Text(provider.Active.tr,
-                                                  style: TextStyle(
-                                                      fontFamily: "Gilroy Bold",
-                                                      color: orangeColor,
-                                                      fontSize: 10),
+                                                  style: TextStyle(fontFamily: "Gilroy Bold", color: orangeColor, fontSize: 10),
                                                   textAlign: TextAlign.center),
                                             ),
                                           ),
@@ -481,10 +444,7 @@ class _HomePageState extends State<HomePage> {
                                             width: Get.width * 0.65,
                                             child: Text(
                                               provider.membership.tr,
-                                              style: TextStyle(
-                                                  fontFamily: "Gilroy Medium",
-                                                  color: greycolor,
-                                                  fontSize: 14),
+                                              style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14),
                                             ),
                                           ),
                                         ],
@@ -654,19 +614,16 @@ class _HomePageState extends State<HomePage> {
                                 //   ),
                                 // ),
                                 SizedBox(height: Get.height * 0.02),
-                                Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TredingRestaurantList(),
-                                      // SizedBox(height: Get.height * 0.04),
+                                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                  TredingRestaurantList(),
+                                  // SizedBox(height: Get.height * 0.04),
 
-                                      ExploreCuisinesMenu(),
-                                      // SizedBox(height: Get.height * 0.02),
-                                      RelatedRestaurantsList(
-                                        showTitle: true,
-                                      ),
-                                    ]),
+                                  ExploreCuisinesMenu(),
+                                  // SizedBox(height: Get.height * 0.02),
+                                  RelatedRestaurantsList(
+                                    showTitle: true,
+                                  ),
+                                ]),
                                 SizedBox(height: Get.height * 0.02)
                               ],
                             ),
@@ -682,10 +639,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  webViewPaymentMethod(
-      {required String initialUrl,
-      required String status1,
-      required String status2}) {
+  webViewPaymentMethod({required String initialUrl, required String status1, required String status2}) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -697,8 +651,7 @@ class _HomePageState extends State<HomePage> {
             debugPrint("************ URL:--- $initialUrl");
             debugPrint("************ Navigating to URL: ${request.url}");
             debugPrint("************ Parsed URI: $uri");
-            debugPrint(
-                "************ 2435243254: ${uri.queryParameters[status1]}");
+            debugPrint("************ 2435243254: ${uri.queryParameters[status1]}");
 
             // Check the status parameter instead of Result
             final status = uri.queryParameters[status1];
@@ -711,10 +664,7 @@ class _HomePageState extends State<HomePage> {
                 debugPrint("Purchase successful.");
                 Get.back();
                 Get.back();
-                planpurchase.planpurchase(
-                    planid: planid,
-                    pname: paymenttital,
-                    transactionid: "transactionid");
+                planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: "transactionid");
 
                 return NavigationDecision.prevent;
               } else {
@@ -738,12 +688,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: RedColor.withOpacity(0.9),
         isScrollControlled: true,
         context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         builder: (context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+          return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
             return Container(
               height: Get.height * 0.35,
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
@@ -755,10 +702,7 @@ class _HomePageState extends State<HomePage> {
                       Image.asset("assets/confetti1.png", height: 25),
                       SizedBox(width: Get.width * 0.02),
                       Text("special prices only for you".tr.toUpperCase(),
-                          style: TextStyle(
-                              fontFamily: "Gilroy Bold",
-                              color: Colors.white,
-                              fontSize: 15)),
+                          style: TextStyle(fontFamily: "Gilroy Bold", color: Colors.white, fontSize: 15)),
                       SizedBox(width: Get.width * 0.02),
                       Image.asset("assets/confetti.png", height: 25)
                     ],
@@ -776,15 +720,13 @@ class _HomePageState extends State<HomePage> {
                             Container(
                               height: 150,
                               width: 172,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 6),
+                              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 6),
                               child: InkWell(
                                 onTap: () {
                                   setState(() {});
                                   defultplan = true;
                                   SelectedIndex = hData.PlanData[index]["id"];
-                                  print(
-                                      "*+*+*+*+*+*+*-+-/-+ hData PlanData-*-+*-*/-+*----*-+-*+-*+"
+                                  print("*+*+*+*+*+*+*-+-/-+ hData PlanData-*-+*-*/-+*----*-+-*+-*+"
                                       "${hData.PlanData[index]["price"]}");
                                   plan1 = hData.PlanData[index]["title"];
                                   plan2 = hData.PlanData[index]["price"];
@@ -792,44 +734,27 @@ class _HomePageState extends State<HomePage> {
                                   planprice = hData.PlanData[index]["price"];
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 14, vertical: 6),
+                                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12),
                                       color: WhiteColor,
-                                      border: Border.all(
-                                          color: SelectedIndex ==
-                                                  hData.PlanData[index]["id"]
-                                              ? orangeColor
-                                              : transparent,
-                                          width: 2)),
+                                      border: Border.all(color: SelectedIndex == hData.PlanData[index]["id"] ? orangeColor : transparent, width: 2)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(hData.PlanData[index]["title"],
-                                          style: TextStyle(
-                                              color: notifier.textColor,
-                                              fontFamily: "Gilroy Bold",
-                                              fontSize: 16)),
+                                          style: TextStyle(color: notifier.textColor, fontFamily: "Gilroy Bold", fontSize: 16)),
                                       SizedBox(height: Get.height * 0.015),
                                       Row(
                                         children: [
-                                          Text(
-                                              "${hData.homeDataList["currency"]}${hData.PlanData[index]["price"]}",
-                                              style: TextStyle(
-                                                  color: notifier.textColor,
-                                                  fontFamily: "Gilroy Bold",
-                                                  fontSize: 18)),
+                                          Text("${hData.homeDataList["currency"]}${hData.PlanData[index]["price"]}",
+                                              style: TextStyle(color: notifier.textColor, fontFamily: "Gilroy Bold", fontSize: 18)),
                                         ],
                                       ),
                                       SizedBox(height: Get.height * 0.015),
                                       Text("${hData.PlanData[index]["day"]}day",
-                                          style: TextStyle(
-                                              color: darkpurple,
-                                              fontFamily: "Gilroy Bold",
-                                              fontSize: 16))
+                                          style: TextStyle(color: darkpurple, fontFamily: "Gilroy Bold", fontSize: 16))
                                     ],
                                   ),
                                 ),
@@ -844,15 +769,8 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 child: CircleAvatar(
                                   radius: 14,
-                                  backgroundColor: SelectedIndex ==
-                                          hData.PlanData[index]["id"]
-                                      ? orangeColor
-                                      : transparent,
-                                  child: Icon(Icons.check,
-                                      color: SelectedIndex ==
-                                              hData.PlanData[index]["id"]
-                                          ? notifier.textColor
-                                          : transparent),
+                                  backgroundColor: SelectedIndex == hData.PlanData[index]["id"] ? orangeColor : transparent,
+                                  child: Icon(Icons.check, color: SelectedIndex == hData.PlanData[index]["id"] ? notifier.textColor : transparent),
                                 ),
                               ),
                             )
@@ -866,8 +784,7 @@ class _HomePageState extends State<HomePage> {
                         Get.back();
                         paymentSheett();
                       } else {
-                        ApiWrapper.showToastMessage(
-                            "Please select at least one plan".tr);
+                        ApiWrapper.showToastMessage("Please select at least one plan".tr);
                       }
                     },
                     child: Container(
@@ -890,26 +807,17 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               "subscribe now".tr.toUpperCase(),
-                              style: TextStyle(
-                                  fontFamily: 'Gilroy Bold',
-                                  fontSize: 16,
-                                  color: WhiteColor),
+                              style: TextStyle(fontFamily: 'Gilroy Bold', fontSize: 16, color: WhiteColor),
                             ),
                             SizedBox(height: 2),
                             !defultplan
                                 ? Text(
                                     "select plan".tr,
-                                    style: TextStyle(
-                                        fontFamily: 'Gilroy Bold',
-                                        fontSize: 14,
-                                        color: WhiteColor),
+                                    style: TextStyle(fontFamily: 'Gilroy Bold', fontSize: 14, color: WhiteColor),
                                   )
                                 : Text(
                                     "at ${hData.homeDataList["currency"]}${plan2} for ${plan1}",
-                                    style: TextStyle(
-                                        fontFamily: 'Gilroy Bold',
-                                        fontSize: 14,
-                                        color: WhiteColor),
+                                    style: TextStyle(fontFamily: 'Gilroy Bold', fontSize: 14, color: WhiteColor),
                                   )
                           ],
                         ),
@@ -936,8 +844,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return Wrap(children: [
-          StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+          StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -946,26 +853,19 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     height: Get.height / 80,
                     width: Get.width / 5,
-                    decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    decoration: const BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.all(Radius.circular(20))),
                   ),
                 ),
                 SizedBox(height: Get.height / 50),
                 Row(children: [
                   SizedBox(width: Get.width / 14),
-                  Text("Select Payment Method".tr,
-                      style: TextStyle(
-                          color: WhiteColor,
-                          fontSize: Get.height / 40,
-                          fontFamily: "Gilroy Medium")),
+                  Text("Select Payment Method".tr, style: TextStyle(color: WhiteColor, fontSize: Get.height / 40, fontFamily: "Gilroy Medium")),
                 ]),
                 SizedBox(height: Get.height / 50),
                 //! --------- List view paymente ----------
                 SizedBox(
                   height: Get.height * 0.50,
-                  child:
-                      GetBuilder<PaymentgatewayController>(builder: (context) {
+                  child: GetBuilder<PaymentgatewayController>(builder: (context) {
                     return payment.isLoading
                         ? ListView.builder(
                             shrinkWrap: true,
@@ -973,29 +873,19 @@ class _HomePageState extends State<HomePage> {
                             itemBuilder: (ctx, i) {
                               return payment.paymentGetway[i]["p_show"] == "1"
                                   ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 14),
+                                      padding: const EdgeInsets.symmetric(vertical: 14),
                                       child: sugestlocationtype(
-                                        borderColor: selectidPay ==
-                                                payment.paymentGetway[i]["id"]
-                                            ? orangeColor
-                                            : greycolor.withOpacity(0.5),
-                                        title: payment.paymentGetway[i]
-                                            ["title"],
+                                        borderColor: selectidPay == payment.paymentGetway[i]["id"] ? orangeColor : greycolor.withOpacity(0.5),
+                                        title: payment.paymentGetway[i]["title"],
                                         titleColor: WhiteColor,
                                         val: 0,
-                                        image: AppUrl.imageurl +
-                                            payment.paymentGetway[i]["img"],
-                                        adress: payment.paymentGetway[i]
-                                            ["subtitle"],
+                                        image: AppUrl.imageurl + payment.paymentGetway[i]["img"],
+                                        adress: payment.paymentGetway[i]["subtitle"],
                                         ontap: () async {
                                           setState(() {
-                                            razorpaykey = payment
-                                                .paymentGetway[i]["attributes"];
-                                            paymenttital = payment
-                                                .paymentGetway[i]["title"];
-                                            selectidPay =
-                                                payment.paymentGetway[i]["id"];
+                                            razorpaykey = payment.paymentGetway[i]["attributes"];
+                                            paymenttital = payment.paymentGetway[i]["title"];
+                                            selectidPay = payment.paymentGetway[i]["id"];
                                             _groupValue = i;
                                           });
                                         },
@@ -1039,8 +929,7 @@ class _HomePageState extends State<HomePage> {
                     onclick: () {
                       //!---- Stripe Payment ------
 
-                      print(
-                          "*+*+*+*+*+*+*-+-/-+ planprice-*-+*-*/-+*----*-+-*+-*+"
+                      print("*+*+*+*+*+*+*-+-/-+ planprice-*-+*-*/-+*----*-+-*+-*+"
                           "${planprice}");
 
                       if (paymenttital == "Razorpay") {
@@ -1054,10 +943,7 @@ class _HomePageState extends State<HomePage> {
                         Get.back();
                       } else if (paymenttital == "Paypal") {
                         payplepayment(onSuccess: (Map params) {
-                          planpurchase.planpurchase(
-                              planid: planid,
-                              pname: paymenttital,
-                              transactionid: params["paymentId"]);
+                          planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: params["paymentId"]);
                         });
                       } else if (paymenttital == "Stripe") {
                         Get.back();
@@ -1066,10 +952,8 @@ class _HomePageState extends State<HomePage> {
                         paystackCont.getPaystack(amount: planprice).then(
                           (value) {
                             Get.to(() => PaymentWebVIew(
-                                      initialUrl: value["data"]
-                                          ["authorization_url"],
-                                      navigationDelegate:
-                                          (NavigationRequest request) async {
+                                      initialUrl: value["data"]["authorization_url"],
+                                      navigationDelegate: (NavigationRequest request) async {
                                         final uri = Uri.parse(request.url);
                                         print("PAYSTACK RESPONSE ${request}");
                                         print("PAYSTACK URL  ${request.url}");
@@ -1077,11 +961,7 @@ class _HomePageState extends State<HomePage> {
                                         Get.back();
                                         paystackCont
                                             .checkPaystack(
-                                                sKey: planpurchase.planpurchase(
-                                                    planid: planid,
-                                                    pname: paymenttital,
-                                                    transactionid:
-                                                        "transactionid"))
+                                                sKey: planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: "transactionid"))
                                             .then(
                                               (value) {},
                                             );
@@ -1092,10 +972,7 @@ class _HomePageState extends State<HomePage> {
                                 .then((otid) {
                               //! order Api call
                               if (otid != null) {
-                                planpurchase.planpurchase(
-                                    planid: planid,
-                                    pname: paymenttital,
-                                    transactionid: otid);
+                                planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: otid);
                               } else {}
                             });
                           },
@@ -1103,8 +980,7 @@ class _HomePageState extends State<HomePage> {
                       } else if (paymenttital == "Payfast") {
                         debugPrint("payFast");
                         webViewPaymentMethod(
-                          initialUrl:
-                              "${AppUrl.paymentBaseUrl + AppUrl.payFast}amt=$planprice",
+                          initialUrl: "${AppUrl.paymentBaseUrl + AppUrl.payFast}amt=$planprice",
                           status1: "status",
                           status2: "success",
                         );
@@ -1118,27 +994,20 @@ class _HomePageState extends State<HomePage> {
                       } else if (paymenttital == "Khalti Payment") {
                         print("===================:-------");
                         Get.to(() => PaymentWebVIew(
-                                  initialUrl:
-                                      "${AppUrl.paymentBaseUrl}Khalti/index.php?amt=${planprice}",
-                                  navigationDelegate:
-                                      (NavigationRequest request) async {
+                                  initialUrl: "${AppUrl.paymentBaseUrl}Khalti/index.php?amt=${planprice}",
+                                  navigationDelegate: (NavigationRequest request) async {
                                     final uri = Uri.parse(request.url);
                                     print("URL + ${uri.queryParameters}");
                                     if (uri.queryParameters["status"] == null) {
                                       // accessToken = uri.queryParameters["token"]!;
                                     } else {
-                                      if (uri.queryParameters["status"] ==
-                                          "Completed") {
-                                        payerID = uri
-                                            .queryParameters["transaction_id"]!;
+                                      if (uri.queryParameters["status"] == "Completed") {
+                                        payerID = uri.queryParameters["transaction_id"]!;
                                         print("PAYER ID $payerID");
                                         Get.back(result: payerID);
                                       } else {
                                         Get.back();
-                                        Fluttertoast.showToast(
-                                            msg:
-                                                "${uri.queryParameters["status"]}",
-                                            timeInSecForIosWeb: 4);
+                                        Fluttertoast.showToast(msg: "${uri.queryParameters["status"]}", timeInSecForIosWeb: 4);
                                       }
                                     }
                                     return NavigationDecision.navigate;
@@ -1146,10 +1015,7 @@ class _HomePageState extends State<HomePage> {
                                 ))!
                             .then((otid) {
                           if (otid != null) {
-                            planpurchase.planpurchase(
-                                planid: planid,
-                                pname: paymenttital,
-                                transactionid: otid);
+                            planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: otid);
                           } else {
                             Get.back();
                           }
@@ -1157,8 +1023,7 @@ class _HomePageState extends State<HomePage> {
                       } else if (paymenttital == "2checkout") {
                         debugPrint("2checkout");
                         webViewPaymentMethod(
-                          initialUrl:
-                              "${AppUrl.paymentBaseUrl}2checkout/index.php?amt=${planprice}",
+                          initialUrl: "${AppUrl.paymentBaseUrl}2checkout/index.php?amt=${planprice}",
                           status1: "status",
                           status2: "successful",
                         );
@@ -1168,23 +1033,15 @@ class _HomePageState extends State<HomePage> {
                         print("===================:-------");
 
                         webViewPaymentMethod(
-                            initialUrl:
-                                "${AppUrl.paymentBaseUrl}merpago/index.php?amt=${planprice}",
-                            status1: "status",
-                            status2: "successful");
+                            initialUrl: "${AppUrl.paymentBaseUrl}merpago/index.php?amt=${planprice}", status1: "status", status2: "successful");
                       } else if (paymenttital == "FlutterWave") {
                         Get.to(() => Flutterwave(
                                   totalAmount: currentTotalprice.toString(),
-                                  email: getData
-                                      .read("UserLogin")["email"]
-                                      .toString(),
+                                  email: getData.read("UserLogin")["email"].toString(),
                                 ))!
                             .then((otid) {
                           if (otid != null) {
-                            planpurchase.planpurchase(
-                                planid: planid,
-                                pname: paymenttital,
-                                transactionid: otid);
+                            planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: otid);
                           } else {
                             Get.back();
                           }
@@ -1192,16 +1049,11 @@ class _HomePageState extends State<HomePage> {
                       } else if (paymenttital == "Paytm") {
                         Get.to(() => PayTmPayment(
                                   totalAmount: currentTotalprice.toString(),
-                                  uid: getData
-                                      .read("UserLogin")["id"]
-                                      .toString(),
+                                  uid: getData.read("UserLogin")["id"].toString(),
                                 ))!
                             .then((otid) {
                           if (otid != null) {
-                            planpurchase.planpurchase(
-                                planid: planid,
-                                pname: paymenttital,
-                                transactionid: otid);
+                            planpurchase.planpurchase(planid: planid, pname: paymenttital, transactionid: otid);
                           } else {
                             Get.back();
                           }
@@ -1223,17 +1075,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget sugestlocationtype(
-      {Function()? ontap,
-      title,
-      val,
-      image,
-      adress,
-      radio,
-      Color? borderColor,
-      Color? titleColor}) {
-    return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
+  Widget sugestlocationtype({Function()? ontap, title, val, image, adress, radio, Color? borderColor, Color? titleColor}) {
+    return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       return InkWell(
         splashColor: Colors.transparent,
         onTap: ontap,
@@ -1241,23 +1084,17 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: Get.width / 18),
           child: Container(
             height: Get.height / 9,
-            decoration: BoxDecoration(
-                border: Border.all(color: borderColor!, width: 1),
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(11)),
+            decoration:
+                BoxDecoration(border: Border.all(color: borderColor!, width: 1), color: Colors.transparent, borderRadius: BorderRadius.circular(11)),
             child: Row(
               children: [
                 SizedBox(width: Get.width / 55),
                 Container(
                     height: Get.height / 12,
                     width: Get.width / 5.5,
-                    decoration: BoxDecoration(
-                        color: const Color(0xffF2F4F9),
-                        borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(color: const Color(0xffF2F4F9), borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                      child: FadeInImage(
-                          placeholder: const AssetImage("assets/loading2.gif"),
-                          image: NetworkImage(image)),
+                      child: FadeInImage(placeholder: const AssetImage("assets/loading2.gif"), image: NetworkImage(image)),
                       // Image.network(image, height: Get.height / 08)
                     )),
                 SizedBox(width: Get.width / 30),
@@ -1276,10 +1113,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(adress,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: Get.height / 65,
-                              fontFamily: "Gilroy Medium",
-                              color: Colors.grey)),
+                          style: TextStyle(fontSize: Get.height / 65, fontFamily: "Gilroy Medium", color: Colors.grey)),
                     ),
                   ],
                 ),
@@ -1333,12 +1167,10 @@ class _HomePageState extends State<HomePage> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
+        return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
           return SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Ink(
                 child: Column(
                   children: [
@@ -1347,10 +1179,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         height: Get.height / 85,
                         width: Get.width / 5,
-                        decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.4),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
+                        decoration: BoxDecoration(color: Colors.grey.withOpacity(0.4), borderRadius: const BorderRadius.all(Radius.circular(20))),
                       ),
                     ),
                     Padding(
@@ -1361,11 +1190,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           SizedBox(height: Get.height * 0.03),
                           Text("Add Your payment information".tr,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  letterSpacing: 0.5)),
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 0.5)),
                           SizedBox(height: Get.height * 0.02),
                           Form(
                             key: _formKey,
@@ -1383,20 +1208,16 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                   controller: numberController,
                                   onSaved: (String? value) {
-                                    _paymentCard.number =
-                                        CardUtils.getCleanedNumber(value!);
+                                    _paymentCard.number = CardUtils.getCleanedNumber(value!);
 
-                                    CardTypee cardType =
-                                        CardUtils.getCardTypeFrmNumber(
-                                            _paymentCard.number.toString());
+                                    CardTypee cardType = CardUtils.getCardTypeFrmNumber(_paymentCard.number.toString());
                                     setState(() {
                                       _card.name = cardType.toString();
                                       _paymentCard.type = cardType;
                                     });
                                   },
                                   onChanged: (val) {
-                                    CardTypee cardType =
-                                        CardUtils.getCardTypeFrmNumber(val);
+                                    CardTypee cardType = CardUtils.getCardTypeFrmNumber(val);
                                     setState(() {
                                       _card.name = cardType.toString();
                                       _paymentCard.type = cardType;
@@ -1436,8 +1257,7 @@ class _HomePageState extends State<HomePage> {
                                         color: orangeColor,
                                       ),
                                     ),
-                                    hintText:
-                                        "What number is written on card?".tr,
+                                    hintText: "What number is written on card?".tr,
                                     hintStyle: TextStyle(color: Colors.grey),
                                     labelStyle: TextStyle(color: Colors.grey),
                                     labelText: "Number".tr,
@@ -1451,17 +1271,14 @@ class _HomePageState extends State<HomePage> {
                                       child: TextFormField(
                                         style: TextStyle(color: Colors.grey),
                                         inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
+                                          FilteringTextInputFormatter.digitsOnly,
                                           LengthLimitingTextInputFormatter(4),
                                         ],
                                         decoration: InputDecoration(
                                             prefixIcon: SizedBox(
                                               height: 10,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 14),
+                                                padding: const EdgeInsets.symmetric(vertical: 14),
                                                 child: Image.asset(
                                                   'assets/card_cvv.png',
                                                   width: 6,
@@ -1469,8 +1286,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                             ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
+                                            focusedErrorBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: orangeColor,
                                               ),
@@ -1485,15 +1301,10 @@ class _HomePageState extends State<HomePage> {
                                                 color: orangeColor,
                                               ),
                                             ),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: orangeColor)),
-                                            hintText:
-                                                "Number behind the card".tr,
-                                            hintStyle:
-                                                TextStyle(color: Colors.grey),
-                                            labelStyle:
-                                                TextStyle(color: Colors.grey),
+                                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: orangeColor)),
+                                            hintText: "Number behind the card".tr,
+                                            hintStyle: TextStyle(color: Colors.grey),
+                                            labelStyle: TextStyle(color: Colors.grey),
                                             labelText: 'CVV'.tr),
                                         validator: CardUtils.validateCVV,
                                         keyboardType: TextInputType.number,
@@ -1508,8 +1319,7 @@ class _HomePageState extends State<HomePage> {
                                       child: TextFormField(
                                         style: TextStyle(color: Colors.black),
                                         inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
+                                          FilteringTextInputFormatter.digitsOnly,
                                           LengthLimitingTextInputFormatter(4),
                                           CardMonthInputFormatter()
                                         ],
@@ -1517,9 +1327,7 @@ class _HomePageState extends State<HomePage> {
                                           prefixIcon: SizedBox(
                                             height: 10,
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 14),
+                                              padding: const EdgeInsets.symmetric(vertical: 14),
                                               child: Image.asset(
                                                 'assets/calender.png',
                                                 width: 10,
@@ -1532,8 +1340,7 @@ class _HomePageState extends State<HomePage> {
                                               color: orangeColor,
                                             ),
                                           ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
+                                          focusedErrorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: orangeColor,
                                             ),
@@ -1549,17 +1356,14 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                           hintText: 'MM/YY'.tr,
-                                          hintStyle:
-                                              TextStyle(color: Colors.black),
-                                          labelStyle:
-                                              TextStyle(color: Colors.grey),
+                                          hintStyle: TextStyle(color: Colors.black),
+                                          labelStyle: TextStyle(color: Colors.grey),
                                           labelText: "Expiry Date".tr,
                                         ),
                                         validator: CardUtils.validateDate,
                                         keyboardType: TextInputType.number,
                                         onSaved: (value) {
-                                          List<int> expiryDate =
-                                              CardUtils.getExpiryDate(value!);
+                                          List<int> expiryDate = CardUtils.getExpiryDate(value!);
                                           _paymentCard.month = expiryDate[0];
                                           _paymentCard.year = expiryDate[1];
                                         },
@@ -1605,8 +1409,7 @@ class _HomePageState extends State<HomePage> {
     final FormState form = _formKey.currentState!;
     if (!form.validate()) {
       setState(() {
-        _autoValidateMode =
-            AutovalidateMode.always; // Start validating on every change.
+        _autoValidateMode = AutovalidateMode.always; // Start validating on every change.
       });
       showToastMessage("Please fix the errors in red before submitting.".tr);
     } else {
@@ -1635,23 +1438,16 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return UsePaypal(
             sandboxMode: true,
-            clientId:
-                "Aa0Yim_XLAz89S4cqO-kT4pK3QbFsruHvEm8zDYX_Y-wIKgsGyv4TzL84dGgtWYUoJqTvKUh0JonIaKa",
-            secretKey:
-                "ECZEZmIjx0j_3_RStM7eT3Bc0Ehdd_yW4slqTnCtNI8WtVOVL1qwRh__u1W_8qKygnPDs0XaviNlb7-z",
-            returnURL:
-                "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-35S7886705514393E",
+            clientId: "Aa0Yim_XLAz89S4cqO-kT4pK3QbFsruHvEm8zDYX_Y-wIKgsGyv4TzL84dGgtWYUoJqTvKUh0JonIaKa",
+            secretKey: "ECZEZmIjx0j_3_RStM7eT3Bc0Ehdd_yW4slqTnCtNI8WtVOVL1qwRh__u1W_8qKygnPDs0XaviNlb7-z",
+            returnURL: "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-35S7886705514393E",
             cancelURL: "https://dineout.zozostudio.tech/paypal/cancle.php",
             transactions: [
               {
                 "amount": {
                   "total": plan2,
                   "currency": "USD",
-                  "details": {
-                    "subtotal": plan2,
-                    "shipping": '0',
-                    "shipping_discount": 0
-                  }
+                  "details": {"subtotal": plan2, "shipping": '0', "shipping_discount": 0}
                 },
                 "description": "The payment transaction description.",
                 // "payment_options": {
@@ -1660,12 +1456,7 @@ class _HomePageState extends State<HomePage> {
                 // },
                 "item_list": {
                   "items": [
-                    {
-                      "name": "A demo product",
-                      "quantity": 1,
-                      "price": plan2,
-                      "currency": "USD"
-                    }
+                    {"name": "A demo product", "quantity": 1, "price": plan2, "currency": "USD"}
                   ],
 
                   // shipping address is not required though

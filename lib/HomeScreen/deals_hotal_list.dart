@@ -2,6 +2,7 @@
 
 import 'package:dineout/Getx_Controller/Controller.dart';
 import 'package:dineout/Getx_Controller/bottom_bar_controller.dart';
+
 // import 'package:dineout/Getx_Controller/Near_By_controller.dart';
 import 'package:dineout/HomeScreen/Hotel_Details.dart';
 import 'package:dineout/HomeScreen/widgets/restaurant_card.dart';
@@ -25,7 +26,9 @@ import '../Utils/dark_light_mode.dart';
 class DealsHotalList extends StatefulWidget {
   final String pageTitle;
   final String id;
+
   const DealsHotalList({super.key, this.pageTitle = "Deals", this.id = ""});
+
   // {super.key, this.pageTitle = "Popular Restaurant around you"});
 
   @override
@@ -35,6 +38,7 @@ class DealsHotalList extends StatefulWidget {
 class _DealsHotalListState extends State<DealsHotalList> {
   HomeController homeController = Get.put(HomeController());
   BottomBarController bottomBarController = Get.put(BottomBarController());
+
   @override
   void initState() {
     getDarkMode();
@@ -43,6 +47,7 @@ class _DealsHotalListState extends State<DealsHotalList> {
   }
 
   late ColorNotifier notifier;
+
   getDarkMode() async {
     final prefs = await SharedPreferences.getInstance();
     bool? previousState = prefs.getBool("setIsDark");
@@ -74,7 +79,7 @@ class _DealsHotalListState extends State<DealsHotalList> {
                     child: bottomBarController.selectedIndex == 1
                         ? SizedBox()
                         : Image.asset("assets/arrowleft.png",
-                            height: 20, color: notifier.textColor))),
+                        height: 20, color: notifier.textColor))),
           ),
           title: Text(
             widget.pageTitle.tr,
@@ -89,38 +94,34 @@ class _DealsHotalListState extends State<DealsHotalList> {
             child: GetBuilder<HomeController>(builder: (context) {
               return homeController.isLoading
                   ? homeController.dealsRestList.isNotEmpty
-                      ? Column(
-                          children: [
-                            ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              itemCount: homeController.dealsRestList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return RestaurantCardOne(
-                                    data: homeController.dealsRestList[index]);
-                              },
-                            )
-                          ],
-                        )
-                      : Padding(
-                          padding: EdgeInsets.only(top: Get.height * 0.35),
-                          child: Center(
-                            child: Text(
-                              "We do not currently have any Deals.".tr,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: greycolor,
-                                  fontFamily: "Gilroy Bold",
-                                  fontSize: 16),
-                            ),
-                          ),
-                        )
+                  ? Column(
+                children: [
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    itemCount: homeController.dealsRestList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return RestaurantCardOne(data: homeController.dealsRestList[index]);
+                    },
+                  )
+                ],
+              )
+                  : Padding(
+                padding: EdgeInsets.only(top: Get.height * 0.35),
+                child: Center(
+                  child: Text(
+                    "We do not currently have any Deals.".tr,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: greycolor, fontFamily: "Gilroy Bold", fontSize: 16),
+                  ),
+                ),
+              )
                   : Center(
-                      child: Padding(
-                      padding: EdgeInsets.only(top: Get.height * 0.4),
-                      child: CircularProgressIndi(),
-                    ));
+                  child: Padding(
+                    padding: EdgeInsets.only(top: Get.height * 0.4),
+                    child: CircularProgressIndi(),
+                  ));
             })),
       ),
     );

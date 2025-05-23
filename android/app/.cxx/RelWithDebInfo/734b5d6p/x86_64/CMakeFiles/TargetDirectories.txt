@@ -1,0 +1,2 @@
+D:/live/eatinout/android/app/.cxx/RelWithDebInfo/734b5d6p/x86_64/CMakeFiles/edit_cache.dir
+D:/live/eatinout/android/app/.cxx/RelWithDebInfo/734b5d6p/x86_64/CMakeFiles/rebuild_cache.dir
