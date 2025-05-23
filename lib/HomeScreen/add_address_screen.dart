@@ -4,6 +4,7 @@ import 'package:dineout/Utils/Bottom_bar.dart';
 import 'package:dineout/Utils/Colors.dart';
 import 'package:dineout/Utils/Custom_widegt.dart';
 import 'package:dineout/Utils/config.dart';
+import 'package:dineout/Utils/dark_light_mode.dart';
 import 'package:dineout/Utils/printf.dart';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MapScreen extends StatefulWidget {
   final String? placeId;
@@ -27,11 +31,12 @@ class _MapScreenState extends State<MapScreen> {
   late Marker _marker;
   String _address = '';
   bool _isLoading = true; // Loading state to track when data is ready
+  late ColorNotifier notifier;
 
   @override
   void initState() {
     super.initState();
-
+    getDarkMode();
     // Initialize the marker with a default position.
     _marker = Marker(
       markerId: MarkerId("default_marker"),
@@ -156,8 +161,19 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  getDarkMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool? previousState = prefs.getBool("setIsDark");
+    if (previousState == null) {
+      notifier.setIsDark = false;
+    } else {
+      notifier.setIsDark = previousState;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    notifier = Provider.of<ColorNotifier>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -166,14 +182,12 @@ class _MapScreenState extends State<MapScreen> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: notifier.background,
         title: Text(
           "Select your location",
-          style: TextStyle(color: Colors.black),
         ),
       ),
       body: _isLoading
@@ -200,7 +214,7 @@ class _MapScreenState extends State<MapScreen> {
                   child: Container(
                     padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: notifier.background,
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
@@ -226,6 +240,7 @@ class _MapScreenState extends State<MapScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
+                                  color: notifier.textColor,
                                 ),
                                 // overflow: TextOverflow.ellipsis,
                               ),

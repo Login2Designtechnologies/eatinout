@@ -202,6 +202,7 @@ import 'package:dineout/Utils/dark_light_mode.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
@@ -295,13 +296,14 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
 
   @override
   Widget build(BuildContext context) {
+    notifier = Provider.of<ColorNotifier>(context, listen: true);
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: notifier.background,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context); // Pop the current screen from the stack
@@ -311,7 +313,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
         backgroundColor: notifier.background,
         title: Text(
           "Enter your area or apartment name",
-          style: TextStyle(color: Colors.black, fontSize: 16),
+          style: TextStyle(fontSize: 16),
         ),
       ),
       body: Column(
@@ -389,7 +391,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
                                     ),
                                     Text(
                                       "${controller.userAddress}",
-                                      style: TextStyle(fontSize: 14),
+                                      style: TextStyle(fontSize: 14, color: notifier.textColor),
                                     )
                                   ],
                                 ),
@@ -425,7 +427,10 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
                           // return;
                           // Get.to(AddAddressScreen());
                         },
-                        title: Text(listOfLocation[index]['description']),
+                        title: Text(
+                          listOfLocation[index]['description'],
+                          style: TextStyle(color: notifier.textColor),
+                        ),
                       );
                     },
                   )
