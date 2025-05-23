@@ -297,10 +297,13 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       backgroundColor: notifier.background,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: notifier.textColor),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -313,131 +316,132 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
         backgroundColor: notifier.background,
         title: Text(
           "Enter your area or apartment name",
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: notifier.textColor),
         ),
       ),
       body: Column(
         children: [
           Expanded(
               child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            children: [
-              Column(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 children: [
-                  TextField(
-                    controller: searchController,
-                    onChanged: (v) {
-                      setState(() {});
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                      hintText: 'Search place...',
-                      prefixIcon: Icon(Icons.search),
-                      hintStyle: TextStyle(color: Colors.grey),
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.5),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.5),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.5),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => AddAddressScreen()));
-                    },
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // SizedBox(width: 8),
-                        Image.asset(
-                          "assets/icon-target.png",
-                          color: orangeColor,
-                          width: 22,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                            child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen()));
-                          },
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Use Current Location",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: orangeColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      "${controller.userAddress}",
-                                      style: TextStyle(fontSize: 14, color: notifier.textColor),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.grey[500],
-                                size: 16,
-                              )
-                            ],
-                          ),
-                        ))
-                      ],
-                    ),
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: listOfLocation.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: () {
-                          // controller.setUserAddress(
-                          //     listOfLocation[index]['description']);
-                          // Get.back();
-
-                          print(listOfLocation[index]['place_id']);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MapScreen(
-                                        placeId: listOfLocation[index]['place_id'],
-                                      )));
-                          // return;
-                          // Get.to(AddAddressScreen());
+                  Column(
+                    children: [
+                      TextField(
+                        controller: searchController,
+                        onChanged: (v) {
+                          setState(() {});
                         },
-                        title: Text(
-                          listOfLocation[index]['description'],
-                          style: TextStyle(color: notifier.textColor),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                          hintText: 'Search place...',
+                          prefixIcon: Icon(Icons.search),
+                          hintStyle: TextStyle(color: Colors.grey),
+                          filled: true,
+                          fillColor: Colors.white,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey, width: 1.5),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey, width: 1.5),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey, width: 1.5),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
                         ),
-                      );
-                    },
+                      ),
+                      SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AddAddressScreen()));
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // SizedBox(width: 8),
+                            Image.asset(
+                              "assets/icon-target.png",
+                              color: orangeColor,
+                              width: 22,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen()));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Use Current Location",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: orangeColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${controller.userAddress}",
+                                              style: TextStyle(fontSize: 14, color: notifier.textColor),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.grey[500],
+                                        size: 16,
+                                      )
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: listOfLocation.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            onTap: () {
+                              // controller.setUserAddress(
+                              //     listOfLocation[index]['description']);
+                              // Get.back();
+
+                              print(listOfLocation[index]['place_id']);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MapScreen(
+                                            placeId: listOfLocation[index]['place_id'],
+                                          )));
+                              // return;
+                              // Get.to(AddAddressScreen());
+                            },
+                            title: Text(
+                              listOfLocation[index]['description'],
+                              style: TextStyle(color: notifier.textColor),
+                            ),
+                          );
+                        },
+                      )
+                    ],
                   )
                 ],
-              )
-            ],
-          ))
+              ))
         ],
       ),
     );

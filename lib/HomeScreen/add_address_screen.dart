@@ -176,6 +176,7 @@ class _MapScreenState extends State<MapScreen> {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: notifier.textColor),
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -188,6 +189,7 @@ class _MapScreenState extends State<MapScreen> {
         backgroundColor: notifier.background,
         title: Text(
           "Select your location",
+          style: TextStyle(color: notifier.textColor),
         ),
       ),
       body: _isLoading
