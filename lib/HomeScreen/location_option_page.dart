@@ -198,9 +198,11 @@ import 'package:dineout/Getx_Controller/Controller.dart';
 import 'package:dineout/HomeScreen/add_address_screen.dart';
 import 'package:dineout/Utils/Colors.dart';
 import 'package:dineout/Utils/config.dart';
+import 'package:dineout/Utils/dark_light_mode.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
@@ -220,6 +222,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
 
   List<dynamic> listOfLocation = [];
   String token = '1234567890';
+  late ColorNotifier notifier;
 
   // Debounce Timer
   Timer? _debounce;
@@ -227,6 +230,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
   @override
   void initState() {
     super.initState();
+    getDarkMode();
     searchController.addListener(() {
       _onChange();
     });
@@ -238,6 +242,16 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
     _debounce?.cancel();
     searchController.dispose();
     super.dispose();
+  }
+
+  getDarkMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool? previousState = prefs.getBool("setIsDark");
+    if (previousState == null) {
+      notifier.setIsDark = false;
+    } else {
+      notifier.setIsDark = previousState;
+    }
   }
 
   // Called on text change
@@ -255,13 +269,11 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
   void placeSuggestion(String input) async {
     const String apiKey = Config.googlePlaceApiKey;
     try {
-      String BaseUrl =
-          "https://maps.googleapis.com/maps/api/place/autocomplete/json";
+      String BaseUrl = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 
       String request = "$BaseUrl?input=$input&key=$apiKey&sessiontoken=$token";
 
-      if (input.length < 3)
-        return; // Don't search if input is less than 3 characters
+      if (input.length < 3) return; // Don't search if input is less than 3 characters
 
       var response = await http.get(Uri.parse(request));
       var data = jsonDecode(response.body);
@@ -296,7 +308,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
           },
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: notifier.background,
         title: Text(
           "Enter your area or apartment name",
           style: TextStyle(color: Colors.black, fontSize: 16),
@@ -316,8 +328,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
                       setState(() {});
                     },
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 16.0),
+                      contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                       hintText: 'Search place...',
                       prefixIcon: Icon(Icons.search),
                       hintStyle: TextStyle(color: Colors.grey),
@@ -360,10 +371,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
                         Expanded(
                             child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MapScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen()));
                           },
                           child: Row(
                             children: [
@@ -412,8 +420,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MapScreen(
-                                        placeId: listOfLocation[index]
-                                            ['place_id'],
+                                        placeId: listOfLocation[index]['place_id'],
                                       )));
                           // return;
                           // Get.to(AddAddressScreen());

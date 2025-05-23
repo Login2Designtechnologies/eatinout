@@ -149,16 +149,16 @@ class _HotelDetailsState extends State<HotelDetails> with SingleTickerProviderSt
 
   void shareHotelDetails(String title, String description, String address, String distance, double price, String mapUrl, String phoneNumber) {
     String message = '''
-  Check out this hotel!
-  
-  Title: $title
-  Description: $description
-  Address: $address
-  Distance: ${distance}
-  Price: \$${price.toStringAsFixed(2)}
-  Directions: $mapUrl
-  Phone: $phoneNumber
-  ''';
+Check out this hotel!
+
+Restaurant Name: $title
+Description: $description
+Address: $address
+Distance: $distance
+Price: \$${price.toStringAsFixed(2)}
+Phone: $phoneNumber
+Directions $mapUrl
+''';
 
     Share.share(message);
   }
@@ -356,7 +356,7 @@ class _HotelDetailsState extends State<HotelDetails> with SingleTickerProviderSt
                                       width: Get.width * 0.92,
                                       child: Text(
                                         hoteldata.hoteldetails["sdesc"],
-                                        style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 16),
+                                        style: TextStyle(fontFamily: "Gilroy Medium", color: notifier.textColor, fontSize: 16),
                                       ),
                                     ),
                                     SizedBox(height: Get.height * 0.02),
@@ -450,7 +450,7 @@ class _HotelDetailsState extends State<HotelDetails> with SingleTickerProviderSt
                                               openMap(double.parse(hoteldata.hoteldetails["latitude"]),
                                                   double.parse(hoteldata.hoteldetails["longtitude"]));
                                             },
-                                            icon: Icon(Icons.directions, size: 15, color: notifier.textColor),
+                                            icon: Icon(Icons.directions_outlined, size: 15, color: notifier.textColor),
                                             label: Text(
                                               'Directions',
                                               style: TextStyle(fontSize: 12, color: notifier.textColor),
@@ -477,7 +477,7 @@ class _HotelDetailsState extends State<HotelDetails> with SingleTickerProviderSt
                                                 print('Could not launch phone app');
                                               }
                                             },
-                                            icon: Icon(Icons.call, size: 15, color: notifier.textColor),
+                                            icon: Icon(Icons.call_outlined, size: 15, color: notifier.textColor),
                                             label: Text(
                                               'Call now',
                                               style: TextStyle(fontSize: 12, color: notifier.textColor),
@@ -505,7 +505,7 @@ class _HotelDetailsState extends State<HotelDetails> with SingleTickerProviderSt
                                                 hoteldata.hoteldetails["mobile"],
                                               );
                                             },
-                                            icon: Icon(Icons.share, size: 15, color: notifier.textColor),
+                                            icon: Icon(Icons.share_rounded, size: 15, color: notifier.textColor),
                                             label: Text(
                                               'Share',
                                               style: TextStyle(fontSize: 12, color: notifier.textColor),

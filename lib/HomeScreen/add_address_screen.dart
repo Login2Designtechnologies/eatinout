@@ -1,5 +1,6 @@
 import 'package:dineout/Getx_Controller/Controller.dart';
 import 'package:dineout/HomeScreen/HomePage.dart';
+import 'package:dineout/Utils/Bottom_bar.dart';
 import 'package:dineout/Utils/Colors.dart';
 import 'package:dineout/Utils/Custom_widegt.dart';
 import 'package:dineout/Utils/config.dart';
@@ -22,8 +23,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   late GoogleMapController mapController;
-  LatLng _center =
-      LatLng(0.0, 0.0); // Default value to avoid uninitialized error
+  LatLng _center = LatLng(0.0, 0.0); // Default value to avoid uninitialized error
   late Marker _marker;
   String _address = '';
   bool _isLoading = true; // Loading state to track when data is ready
@@ -65,8 +65,7 @@ class _MapScreenState extends State<MapScreen> {
     printf("t t t" * 090);
 
     final String apiKey = Config.googlePlaceApiKey; // Replace with your API key
-    final String url =
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$apiKey";
+    final String url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$apiKey";
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -108,8 +107,7 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _fetchAddressFromLatLng(LatLng latLng) async {
     print('object' * 90);
     final String apiKey = Config.googlePlaceApiKey; // Replace with your API key
-    final String url =
-        "https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.latitude},${latLng.longitude}&key=$apiKey";
+    final String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.latitude},${latLng.longitude}&key=$apiKey";
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -141,8 +139,7 @@ class _MapScreenState extends State<MapScreen> {
       _marker = Marker(
         markerId: MarkerId("place_marker"),
         position: _center,
-        infoWindow:
-            InfoWindow(title: _address), // This will show the updated address
+        infoWindow: InfoWindow(title: _address), // This will show the updated address
       );
     });
   }
@@ -154,8 +151,7 @@ class _MapScreenState extends State<MapScreen> {
       _marker = Marker(
         markerId: MarkerId("place_marker"),
         position: _center,
-        infoWindow: InfoWindow(
-            title: _address), // Update marker but don't fetch address yet
+        infoWindow: InfoWindow(title: _address), // Update marker but don't fetch address yet
       );
     });
   }
@@ -181,8 +177,7 @@ class _MapScreenState extends State<MapScreen> {
         ),
       ),
       body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator()) // Show a loading indicator
+          ? Center(child: CircularProgressIndicator()) // Show a loading indicator
           : Stack(
               children: [
                 GoogleMap(
@@ -195,10 +190,8 @@ class _MapScreenState extends State<MapScreen> {
                     zoom: 15.0,
                   ),
                   markers: {_marker},
-                  onCameraMove:
-                      _onCameraMove, // Update marker position while moving
-                  onCameraIdle:
-                      _onCameraIdle, // Fetch the address when dragging stops
+                  onCameraMove: _onCameraMove, // Update marker position while moving
+                  onCameraIdle: _onCameraIdle, // Fetch the address when dragging stops
                 ),
                 Positioned(
                   bottom: 0,
@@ -245,18 +238,19 @@ class _MapScreenState extends State<MapScreen> {
                           buttontext: "Confirm Location",
                           onTap: () async {
                             // Get.to(() => const HomePage());
-                            HomeController homeController =
-                                Get.find<HomeController>();
+                            HomeController homeController = Get.find<HomeController>();
                             homeController.setUserAddress(_address);
                             homeController.lat = _center.latitude;
                             homeController.long = _center.longitude;
                             homeController.fetchAllData();
-                            Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                              (Route<dynamic> route) => false,
-                            );
+                            Get.to(() => BottomBar());
+
+                            // Navigator.of(context).pushAndRemoveUntil(
+                            //   MaterialPageRoute(
+                            //     builder: (context) => HomePage(),
+                            //   ),
+                            //   (Route<dynamic> route) => false,
+                            // );
                           },
                         ),
                       ],
@@ -273,11 +267,7 @@ class _MapScreenState extends State<MapScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                            blurRadius: 2,
-                            offset: Offset(1, 1),
-                            spreadRadius: 1,
-                            color: const Color.fromARGB(255, 166, 166, 166)
-                                .withOpacity(.3))
+                            blurRadius: 2, offset: Offset(1, 1), spreadRadius: 1, color: const Color.fromARGB(255, 166, 166, 166).withOpacity(.3))
                       ],
                     ),
                     child: TextField(
@@ -286,26 +276,22 @@ class _MapScreenState extends State<MapScreen> {
                       },
                       readOnly: true,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 16.0),
+                        contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                         hintText: 'Search place...',
                         prefixIcon: Icon(Icons.search),
                         hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.5),
+                          borderSide: BorderSide(color: Colors.grey, width: 1.5),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.5),
+                          borderSide: BorderSide(color: Colors.grey, width: 1.5),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.5),
+                          borderSide: BorderSide(color: Colors.grey, width: 1.5),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
