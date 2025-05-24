@@ -14,6 +14,7 @@ import 'package:dineout/Utils/printf.dart';
 import 'package:dineout/api/Api_werper.dart';
 import 'package:dineout/api/Data_save.dart';
 import 'package:dineout/api/confrigation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final Email = TextEditingController();
-  final password = TextEditingController();
+  final password = TextEditingController(text: kDebugMode ? "12345678" : "");
   bool _obscureText = true;
   void _toggle() {
     setState(() {
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
   final formKey = GlobalKey<FormState>();
-  final Mobile = TextEditingController();
+  final Mobile = TextEditingController(text: kDebugMode ? "6367622773" : "");
 
   late ColorNotifier notifier;
   getDarkMode() async {
@@ -122,10 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       "Don't have an account?".tr,
-                      style: TextStyle(
-                          fontFamily: "Gilroy Medium",
-                          color: notifier.textColor,
-                          fontSize: 16),
+                      style: TextStyle(fontFamily: "Gilroy Medium", color: notifier.textColor, fontSize: 16),
                     ),
                     InkWell(
                       onTap: () {
@@ -133,10 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Text(
                         " Sign Up".tr,
-                        style: TextStyle(
-                            fontFamily: "Gilroy Bold",
-                            color: orangeColor,
-                            fontSize: 16),
+                        style: TextStyle(fontFamily: "Gilroy Bold", color: orangeColor, fontSize: 16),
                       ),
                     ),
                   ],
@@ -158,8 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                           exit(0);
                         });
                       },
-                      child: Image.asset("assets/leftarrow.png",
-                          color: notifier.textColor)),
+                      child: Image.asset("assets/leftarrow.png", color: notifier.textColor)),
                 ))),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -171,19 +165,14 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: Get.height * 0.05),
                 Text(
                   "Welcome back".tr,
-                  style: TextStyle(
-                      fontFamily: "Gilroy Bold",
-                      color: notifier.textColor,
-                      fontSize: 22),
+                  style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 22),
                 ),
                 SizedBox(height: Get.height * 0.03),
                 IntlPhoneField(
                   keyboardType: TextInputType.number,
                   controller: Mobile,
-                  dropdownTextStyle:
-                      TextStyle(color: notifier.textColor, fontSize: 16),
-                  style: TextStyle(
-                      fontFamily: "Gilroy Medium", color: notifier.textColor),
+                  dropdownTextStyle: TextStyle(color: notifier.textColor, fontSize: 16),
+                  style: TextStyle(fontFamily: "Gilroy Medium", color: notifier.textColor),
                   cursorColor: const Color(0xff4361EE),
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
@@ -256,10 +245,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Text(
                         "Forgot Password?".tr,
-                        style: TextStyle(
-                            fontFamily: "Gilroy Medium",
-                            color: notifier.textColor,
-                            fontSize: 16),
+                        style: TextStyle(fontFamily: "Gilroy Medium", color: notifier.textColor, fontSize: 16),
                       ),
                     ),
                     Row(
@@ -269,8 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Theme(
                             data: ThemeData(unselectedWidgetColor: greycolor),
                             child: Checkbox(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                               value: isChecked,
                               activeColor: notifier.textColor,
                               checkColor: notifier.background,
@@ -285,10 +270,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Text(
                           "Remember Me".tr,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: "Gilroy Medium",
-                              color: notifier.textColor),
+                          style: TextStyle(fontSize: 14, fontFamily: "Gilroy Medium", color: notifier.textColor),
                         ),
                       ],
                     ),
@@ -324,8 +306,7 @@ class _LoginPageState extends State<LoginPage> {
           saveCountryCode(Country);
           Get.to(() => BottomBar());
           // OneSignal.shared.sendTag("user_id", getData.read("UserLogin")["id"]);
-          OneSignal.User.addTagWithKey(
-              "user_id", getData.read("UserLogin")["id"]);
+          OneSignal.User.addTagWithKey("user_id", getData.read("UserLogin")["id"]);
           ApiWrapper.showToastMessage(result["ResponseMsg"]);
         } else {
           ApiWrapper.showToastMessage(result["ResponseMsg"]);

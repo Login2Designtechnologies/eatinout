@@ -20,6 +20,7 @@ class TredingRestaurantList extends StatefulWidget {
 class _TredingRestaurantListState extends State<TredingRestaurantList> {
   int currentindex = 0;
   late ColorNotifier notifier;
+
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
@@ -28,17 +29,13 @@ class _TredingRestaurantListState extends State<TredingRestaurantList> {
       children: [
         Text(
           provider.trending.tr,
-          style: TextStyle(
-              fontFamily: "Gilroy Bold",
-              color: notifier.textColor,
-              fontSize: 16),
+          style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 16),
         ),
         SizedBox(height: Get.height * 0.03),
         GetBuilder<HomeController>(builder: (hData) {
           return hData.latestrest.length > 0
               ? SizedBox(
-                  height:
-                      hData.latestrest.length > 0 ? Get.height * 0.64 : null,
+                  height: hData.latestrest.length > 0 ? Get.height * 0.64 : null,
                   width: double.infinity,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -51,8 +48,7 @@ class _TredingRestaurantListState extends State<TredingRestaurantList> {
                           setState(() {
                             currentindex = index;
                           });
-                          Get.to(() => HotelDetails(
-                              detailId: hData.latestrest[index]["id"]));
+                          Get.to(() => HotelDetails(detailId: hData.latestrest[index]["id"]));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -81,8 +77,7 @@ class _TredingRestaurantListState extends State<TredingRestaurantList> {
                                       placeholderCacheWidth: 240,
                                       placeholderFit: BoxFit.fill,
                                       // placeholderScale: 1.0,
-                                      image: AppUrl.imageurl +
-                                          hData.latestrest[index]["img"],
+                                      image: AppUrl.imageurl + hData.latestrest[index]["img"],
                                       fit: BoxFit.cover,
                                     ),
                                     Positioned(
@@ -96,55 +91,29 @@ class _TredingRestaurantListState extends State<TredingRestaurantList> {
                                           child: Container(
                                             height: Get.height * 0.08,
                                             width: Get.width * 0.34,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: notifier.textColor)),
+                                            decoration: BoxDecoration(border: Border.all(color: notifier.textColor)),
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                GetBuilder<HomeController>(
-                                                    builder: (context) {
+                                                GetBuilder<HomeController>(builder: (context) {
                                                   String currentdiscount = "";
-                                                  DateTime date =
-                                                      DateTime.now();
-                                                  String dateFormat =
-                                                      DateFormat('EEEE')
-                                                          .format(date);
-                                                  if (dateFormat == "Friday" ||
-                                                      dateFormat ==
-                                                          "Saturday" ||
-                                                      dateFormat == "Sunday") {
-                                                    currentdiscount =
-                                                        hData.latestrest[index]
-                                                            ["frisun"];
+                                                  DateTime date = DateTime.now();
+                                                  String dateFormat = DateFormat('EEEE').format(date);
+                                                  if (dateFormat == "Friday" || dateFormat == "Saturday" || dateFormat == "Sunday") {
+                                                    currentdiscount = hData.latestrest[index]["frisun"];
                                                   } else {
-                                                    currentdiscount =
-                                                        hData.latestrest[index]
-                                                            ["monthru"];
+                                                    currentdiscount = hData.latestrest[index]["monthru"];
                                                   }
 
                                                   return Text(
                                                     "${currentdiscount}% OFF",
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            "Gilroy Bold",
-                                                        color:
-                                                            notifier.textColor,
-                                                        fontSize: 20),
+                                                    style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 20),
                                                   );
                                                 }),
-                                                SizedBox(
-                                                    height: Get.height * 0.01),
+                                                SizedBox(height: Get.height * 0.01),
                                                 Text(
-                                                  "Today's Discount"
-                                                      .tr
-                                                      .toUpperCase(),
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          "Gilroy Medium",
-                                                      color: notifier.textColor,
-                                                      fontSize: 12),
+                                                  "Today's Discount".tr.toUpperCase(),
+                                                  style: TextStyle(fontFamily: "Gilroy Medium", color: notifier.textColor, fontSize: 12),
                                                 )
                                               ],
                                             ),
@@ -156,42 +125,35 @@ class _TredingRestaurantListState extends State<TredingRestaurantList> {
                               SizedBox(height: Get.height * 0.02),
                               Text(
                                 hData.latestrest[index]["title"],
-                                style: TextStyle(
-                                    color: notifier.textColor,
-                                    fontFamily: "Gilroy Bold",
-                                    fontSize: 18),
+                                style: TextStyle(color: notifier.textColor, fontFamily: "Gilroy Bold", fontSize: 18),
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.star_rate_rounded,
-                                      color: yelloColor, size: 22),
+                                  Icon(Icons.star_rate_rounded, color: yelloColor, size: 22),
                                   Text(
                                     hData.latestrest[index]["rate"],
-                                    style: TextStyle(
-                                        color: greycolor,
-                                        fontFamily: "Gilroy Bold",
-                                        fontSize: 16),
+                                    style: TextStyle(color: greycolor, fontFamily: "Gilroy Bold", fontSize: 16),
                                   ),
                                   SizedBox(width: Get.width * 0.01),
-                                  CircleAvatar(
-                                      radius: 2, backgroundColor: greycolor),
+                                  CircleAvatar(radius: 2, backgroundColor: greycolor),
                                   SizedBox(width: Get.width * 0.02),
                                   Text(
                                     hData.latestrest[index]["landmark"],
-                                    style: TextStyle(
-                                        color: greycolor,
-                                        fontFamily: "Gilroy Bold",
-                                        fontSize: 16),
+                                    style: TextStyle(color: greycolor, fontFamily: "Gilroy Bold", fontSize: 16),
                                   ),
                                 ],
                               ),
                               SizedBox(
                                 width: Get.width * 0.45,
-                                child: Text(hData.latestrest[index]["sdesc"],
-                                    style: TextStyle(
-                                        color: greycolor,
-                                        fontFamily: "Gilroy Medium",
-                                        fontSize: 14)),
+                                child: Text(
+                                  hData.latestrest[index]["sdesc"],
+                                  style: TextStyle(
+                                    color: greycolor,
+                                    fontFamily: "Gilroy Medium",
+                                    fontSize: 14,
+                                  ),
+                                  maxLines: 3,
+                                ),
                               ),
                             ],
                           ),

@@ -68,8 +68,7 @@ class _BottomBarState extends State<BottomBar> {
         unselectedItemColor: greycolor,
         backgroundColor: notifier.background,
         elevation: 0,
-        selectedLabelStyle: const TextStyle(
-            fontFamily: 'Gilroy Bold', fontWeight: FontWeight.bold),
+        selectedLabelStyle: const TextStyle(fontFamily: 'Gilroy Bold', fontWeight: FontWeight.bold),
         fixedColor: orangeColor,
         unselectedLabelStyle: const TextStyle(fontFamily: 'Gilroy Medium'),
         currentIndex: bottomBarController.selectedIndex,
@@ -79,33 +78,25 @@ class _BottomBarState extends State<BottomBar> {
           BottomNavigationBarItem(
               icon: Image.asset("assets/home.png",
                   // color: selectedIndex == 0
-                  color: bottomBarController.selectedIndex == 0
-                      ? orangeColor
-                      : greycolor.withOpacity(0.5),
+                  color: bottomBarController.selectedIndex == 0 ? orangeColor : greycolor.withOpacity(0.5),
                   height: MediaQuery.of(context).size.height / 35),
               label: 'Home'.tr),
           BottomNavigationBarItem(
               icon: Image.asset("assets/nearby.png",
                   // color: selectedIndex == 1
-                  color: bottomBarController.selectedIndex == 1
-                      ? orangeColor
-                      : greycolor.withOpacity(0.5),
+                  color: bottomBarController.selectedIndex == 1 ? orangeColor : greycolor.withOpacity(0.5),
                   height: MediaQuery.of(context).size.height / 35),
               label: 'Popular'.tr),
           BottomNavigationBarItem(
               icon: Image.asset("assets/onesignal.png",
                   // color: selectedIndex == 2
-                  color: bottomBarController.selectedIndex == 2
-                      ? orangeColor
-                      : greycolor.withOpacity(0.5),
+                  color: bottomBarController.selectedIndex == 2 ? orangeColor : greycolor.withOpacity(0.5),
                   height: MediaQuery.of(context).size.height / 35),
               label: 'Notification'.tr),
           BottomNavigationBarItem(
             icon: Image.asset("assets/profile.png",
                 // color: selectedIndex == 3
-                color: bottomBarController.selectedIndex == 3
-                    ? orangeColor
-                    : greycolor.withOpacity(0.5),
+                color: bottomBarController.selectedIndex == 3 ? orangeColor : greycolor.withOpacity(0.5),
                 height: MediaQuery.of(context).size.height / 35),
             label: 'Profile'.tr,
           ),

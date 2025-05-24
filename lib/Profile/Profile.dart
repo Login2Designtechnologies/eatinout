@@ -32,14 +32,7 @@ class Profile extends StatefulWidget {
   String? time;
   String? discount;
   String? discountamount;
-  Profile(
-      {this.people,
-      this.title,
-      this.bookingdate,
-      this.time,
-      this.discount,
-      this.discountamount,
-      super.key});
+  Profile({this.people, this.title, this.bookingdate, this.time, this.discount, this.discountamount, super.key});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -75,6 +68,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   bool isLodding = false;
   bool darkMode = false;
   late ColorNotifier notifier;
+
   getDarkMode() async {
     final prefs = await SharedPreferences.getInstance();
     bool? previousState = prefs.getBool("setIsDark");
@@ -86,16 +80,18 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     }
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    notifier.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   notifier.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
+    darkMode = notifier.isDark;
+
     return WillPopScope(
       onWillPop: () {
         // if (selectedIndex == 3) {
@@ -113,8 +109,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               width: double.infinity,
               color: notifier.background,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -136,8 +131,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                 SizedBox(
                                   height: 30,
                                 ),
-                                Image.asset("assets/arrowleft.png",
-                                    height: 20, color: notifier.textColor),
+                                Image.asset("assets/arrowleft.png", height: 20, color: notifier.textColor),
                               ],
                             ),
                     ),
@@ -147,18 +141,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                       children: [
                         Expanded(
                           child: Text(getData.read("UserLogin")["name"],
-                              style: TextStyle(
-                                  fontFamily: "Gilroy Bold",
-                                  color: notifier.textColor,
-                                  fontSize: 16)),
+                              style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 16)),
                         ),
                         InkWell(
                           onTap: bottomsheet,
-                          child: Text("edit".tr.toUpperCase(),
-                              style: TextStyle(
-                                  fontFamily: "Gilroy Bold",
-                                  color: notifier.textColor,
-                                  fontSize: 16)),
+                          child: Text("edit".tr.toUpperCase(), style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 16)),
                         )
                       ],
                     ),
@@ -173,11 +160,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                           children: [
                             // Text(getData.read("UserLogin")["ccode"],
                             Expanded(
-                              child: Text(userDetails,
-                                  style: TextStyle(
-                                      fontFamily: "Gilroy Medium",
-                                      color: greycolor,
-                                      fontSize: 14)),
+                              child: Text(userDetails, style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14)),
                             ),
                             // SizedBox(width: Get.width * 0.02),
                             // Text(getData.read("UserLogin")["mobile"],
@@ -219,57 +202,35 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                     Divider(color: notifier.textColor),
                                     Row(
                                       children: [
-                                        Text("Gold".tr,
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy ExtraBold",
-                                                color: goldColor,
-                                                fontSize: 18)),
+                                        Text("Gold".tr, style: TextStyle(fontFamily: "Gilroy ExtraBold", color: goldColor, fontSize: 18)),
                                         SizedBox(width: Get.width * 0.01),
-                                        Text("Membership".tr,
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy Medium",
-                                                color: notifier.textColor,
-                                                fontSize: 16)),
+                                        Text("Membership".tr, style: TextStyle(fontFamily: "Gilroy Medium", color: notifier.textColor, fontSize: 16)),
                                         SizedBox(width: Get.width * 0.015),
                                         Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4, vertical: 4),
+                                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                           width: 70,
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               begin: Alignment.topLeft,
                                               end: Alignment.topRight,
                                               stops: [0.1, 0.3, 1],
-                                              colors: <Color>[
-                                                orangeColor,
-                                                orangeColor,
-                                                Colors.red
-                                              ],
+                                              colors: <Color>[orangeColor, orangeColor, Colors.red],
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                            borderRadius: BorderRadius.circular(20),
                                           ),
                                           child: Center(
-                                            child: Text("Active".tr,
-                                                style: TextStyle(
-                                                    fontFamily: "Gilroy Bold",
-                                                    color: WhiteColor,
-                                                    fontSize: 16)),
+                                            child: Text("Active".tr, style: TextStyle(fontFamily: "Gilroy Bold", color: WhiteColor, fontSize: 16)),
                                           ),
                                         ),
                                       ],
                                     ),
                                     SizedBox(height: Get.height * 0.01),
-                                    GetBuilder<MembershipController>(
-                                        builder: (context) {
+                                    GetBuilder<MembershipController>(builder: (context) {
                                       return SizedBox(
                                         width: Get.width * 0.84,
                                         child: Text(
                                             "${membership.member["membersip_title"]} for ${membership.member["valid_till"]} Explore More Benefits",
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy Medium",
-                                                color: greycolor,
-                                                fontSize: 14)),
+                                            style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14)),
                                       );
                                     }),
                                     SizedBox(height: Get.height * 0.02),
@@ -297,8 +258,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                   bookingdate: widget.bookingdate,
                                   time: widget.time,
                                 ));
-                            print(
-                                "#############################${widget.title}");
+                            print("#############################${widget.title}");
                           },
                           icon: Icons.keyboard_arrow_right,
                           titletext: "Table Reservations".tr,
@@ -308,8 +268,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                       SizedBox(height: Get.height * 0.01),
                       Account(
                           onTap: () {
-                            print(
-                                "#############################${widget.title}");
+                            print("#############################${widget.title}");
                             Get.to(() => MyAccount(
                                   hotelname: widget.title,
                                   booktime: widget.time,
@@ -340,17 +299,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Dark Mode".tr,
-                                  style: TextStyle(
-                                      fontFamily: "Gilroy Bold",
-                                      color: notifier.textColor,
-                                      fontSize: 18)),
+                              Text("Dark Mode".tr, style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 18)),
                               SizedBox(height: Get.height * 0.007),
-                              Text("Change Theme".tr,
-                                  style: TextStyle(
-                                      fontFamily: "Gilroy Medium",
-                                      color: greycolor,
-                                      fontSize: 14)),
+                              Text("Change Theme".tr, style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14)),
                             ],
                           ),
                           Transform.scale(
@@ -366,8 +317,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                   setState(() {
                                     darkMode = value;
                                   });
-                                  final prefs =
-                                      await SharedPreferences.getInstance();
+                                  final prefs = await SharedPreferences.getInstance();
                                   setState(
                                     () {
                                       notifier.setIsDark = value;
@@ -439,8 +389,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                       //     );
                       //   },
                       // ),
-                      GetBuilder<DeleteAccountController>(
-                          builder: (BuildContext) {
+                      GetBuilder<DeleteAccountController>(builder: (BuildContext) {
                         return Account(
                             onTap: () async {
                               setState(() {
@@ -456,8 +405,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                             },
                             icon: Icons.keyboard_arrow_right,
                             titletext: "Delete Account".tr,
-                            subtitletext:
-                                "The option to delete the account".tr);
+                            subtitletext: "The option to delete the account".tr);
                       }),
                       SizedBox(height: Get.height * 0.01),
                       Divider(color: greycolor),
@@ -468,10 +416,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                               getData.remove('Firstuser');
                               getData.remove('Remember');
                               getData.remove("UserLogin");
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                             },
                             icon: Icons.keyboard_arrow_right,
                             titletext: "Logout".tr,
@@ -489,8 +434,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
-  Account(
-      {IconData? icon, String? titletext, subtitletext, Function()? onTap}) {
+  Account({IconData? icon, String? titletext, subtitletext, Function()? onTap}) {
     return InkWell(
       overlayColor: MaterialStatePropertyAll(Colors.transparent),
       onTap: onTap,
@@ -500,19 +444,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(titletext!,
-                  style: TextStyle(
-                      fontFamily: "Gilroy Bold",
-                      color: notifier.textColor,
-                      fontSize: 18)),
+              Text(titletext!, style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 18)),
               SizedBox(height: Get.height * 0.007),
               SizedBox(
                 width: Get.width * 0.85,
-                child: Text(subtitletext,
-                    style: TextStyle(
-                        fontFamily: "Gilroy Medium",
-                        color: greycolor,
-                        fontSize: 14)),
+                child: Text(subtitletext, style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14)),
               ),
             ],
           ),
@@ -527,23 +463,17 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         backgroundColor: notifier.containerColor,
         isScrollControlled: true,
         context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         builder: (context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+          return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
             return Container(
                 height: 380,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                 child: Scaffold(
                   backgroundColor: notifier.containerColor,
-                  floatingActionButtonLocation:
-                      FloatingActionButtonLocation.centerTop,
+                  floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
                   floatingActionButton: Container(
-                      transform: Matrix4.translationValues(
-                          0.0, -80, 0.0), // translate up by 30
+                      transform: Matrix4.translationValues(0.0, -80, 0.0), // translate up by 30
                       child: FloatingActionButton(
                         backgroundColor: notifier.textColor.withOpacity(0.5),
                         onPressed: () {
@@ -557,30 +487,14 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(height: Get.height * 0.01),
-                        Text("Edit Profile".tr,
-                            style: TextStyle(
-                                fontFamily: "Gilroy Bold",
-                                color: notifier.textColor,
-                                fontSize: 16)),
+                        Text("Edit Profile".tr, style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 16)),
                         SizedBox(height: Get.height * 0.02),
                         SizedBox(height: Get.height * 0.01),
-                        passwordtextfield(
-                            controller: Name,
-                            color: notifier.textColor,
-                            obscureText: false,
-                            lebaltext: "Full Name".tr),
+                        passwordtextfield(controller: Name, color: notifier.textColor, obscureText: false, lebaltext: "Full Name".tr),
                         SizedBox(height: Get.height * 0.03),
-                        passwordtextfield(
-                            controller: Email,
-                            obscureText: false,
-                            color: notifier.textColor,
-                            lebaltext: "Email Address".tr),
+                        passwordtextfield(controller: Email, obscureText: false, color: notifier.textColor, lebaltext: "Email Address".tr),
                         SizedBox(height: Get.height * 0.02),
-                        passwordtextfield(
-                            controller: password,
-                            obscureText: false,
-                            color: notifier.textColor,
-                            lebaltext: "Password".tr),
+                        passwordtextfield(controller: password, obscureText: false, color: notifier.textColor, lebaltext: "Password".tr),
                         SizedBox(height: Get.height * 0.02),
                         AppButton(
                           buttonColor: gradientColor,
@@ -599,12 +513,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   Editprofile(String name, String password, String email) async {
     try {
-      Map map = {
-        "name": name,
-        "password": password,
-        "email": email,
-        "uid": getData.read("UserLogin")["id"]
-      };
+      Map map = {"name": name, "password": password, "email": email, "uid": getData.read("UserLogin")["id"]};
       Uri uri = Uri.parse(AppUrl.editprofile);
       var response = await http.post(uri, body: jsonEncode(map));
       if (response.statusCode == 200) {
@@ -634,9 +543,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
     dynamicPageDataList.clear();
     ApiWrapper.dataPost(AppUrl.pagelist, data).then((value) {
-      if ((value != null) &&
-          (value.isNotEmpty) &&
-          (value['ResponseCode'] == "200")) {
+      if ((value != null) && (value.isNotEmpty) && (value['ResponseCode'] == "200")) {
         List da = value['pagelist'];
         for (int i = 0; i < da.length; i++) {
           Map<String, dynamic> mapData = da[i];
@@ -653,8 +560,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             text = "";
           }
         }
-        print("jwgqdskdjchsjdilcuhsilcjsailkfhcjilsjfcsilkjfchidshfcid" +
-            dynamicPageDataList.length.toString());
+        print("jwgqdskdjchsjdilcuhsilcjsailkfhcjilsjfcsilkjfchidshfcid" + dynamicPageDataList.length.toString());
         setState(() {
           isLodding = true;
         });

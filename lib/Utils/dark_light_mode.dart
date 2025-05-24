@@ -4,6 +4,8 @@ import 'Colors.dart';
 
 class ColorNotifier with ChangeNotifier {
   bool _isDark = false;
+  bool get isDark => _isDark;
+  
   set setIsDark(value) {
     _isDark = value;
     notifyListeners();

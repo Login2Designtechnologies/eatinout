@@ -82,6 +82,45 @@ class HomePage extends StatefulWidget {
 // var long;
 
 class _HomePageState extends State<HomePage> {
+  String? SelectedIndex;
+  // MembershipController membership = Get.put(MembershipController());
+  String? accessToken = "";
+
+  var address;
+  var currency;
+  int currentTotalprice = 0;
+  bool defultplan = false;
+  var first;
+  HomeController hData = Get.put(HomeController());
+  late ColorNotifier notifier;
+  var numberController = TextEditingController();
+  String payerID = "";
+  PaymentgatewayController payment = Get.put(PaymentgatewayController());
+  String? paymenttital;
+  // late Razorpay _razorpay;
+
+  // final plugin = PaystackPlugin();
+  PaystackController paystackCont = Get.put(PaystackController());
+
+  String? plan1;
+  String? plan2;
+  String? planid;
+  String planprice = "0";
+  // LocationController locationController = Get.put(LocationController());
+
+  PlanpurchaseController planpurchase = Get.put(PlanpurchaseController());
+
+  String razorpaykey = "";
+  bool selected = true;
+  String selectidPay = "0";
+  String totelbill = "0";
+
+  var _autoValidateMode = AutovalidateMode.disabled;
+  final _card = PaymentCardCreated();
+  final _formKey = GlobalKey<FormState>();
+  int? _groupValue;
+  final _paymentCard = PaymentCardCreated();
+
   // Homepage? homepage;
 
   @override
@@ -91,53 +130,6 @@ class _HomePageState extends State<HomePage> {
     // _razorpay.clear();
     super.dispose();
   }
-
-  void _getCardTypeFrmNumber() {
-    String input = CardUtils.getCleanedNumber(numberController.text);
-    CardTypee cardType = CardUtils.getCardTypeFrmNumber(input);
-    setState(() {
-      _paymentCard.type = cardType;
-    });
-  }
-
-  String? SelectedIndex;
-  String? plan1;
-  String? plan2;
-
-  bool selected = true;
-  bool defultplan = false;
-
-  var first;
-  var address;
-  String selectidPay = "0";
-  String razorpaykey = "";
-  String? paymenttital;
-  int? _groupValue;
-  String? planid;
-  String planprice = "0";
-  final _paymentCard = PaymentCardCreated();
-  var currency;
-  var _autoValidateMode = AutovalidateMode.disabled;
-  int currentTotalprice = 0;
-  final _formKey = GlobalKey<FormState>();
-  final _card = PaymentCardCreated();
-  var numberController = TextEditingController();
-
-  // late Razorpay _razorpay;
-
-  // final plugin = PaystackPlugin();
-  PaystackController paystackCont = Get.put(PaystackController());
-  HomeController hData = Get.put(HomeController());
-
-  // LocationController locationController = Get.put(LocationController());
-
-  PlanpurchaseController planpurchase = Get.put(PlanpurchaseController());
-  PaymentgatewayController payment = Get.put(PaymentgatewayController());
-
-  // MembershipController membership = Get.put(MembershipController());
-  String? accessToken = "";
-  String payerID = "";
-  String totelbill = "0";
 
   @override
   void initState() {
@@ -169,474 +161,6 @@ class _HomePageState extends State<HomePage> {
 
     // void _handleExternalWallet(ExternalWalletResponse response) {
     //   showToastMessage(response.walletName!);
-  }
-
-  late ColorNotifier notifier;
-
-  // BottomBarController bottomBarController = Get.put(BottomBarController());
-  @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    notifier = Provider.of<ColorNotifier>(context, listen: true);
-    Future.delayed(Duration(seconds: 0), () {
-      setState(() {});
-    });
-    // ignore: deprecated_member_use
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () {
-      // payment.paymentgatewaySuccessEmail();
-      // payment.paymentHistory(
-      //     discountamount: "12",
-      //     discountvalue: "15",
-      //     payedamount: "44",
-      //     paymentid: "a;dks23jlrqkwejr",
-      //     restid: "23",
-      //     tipamount: "12",
-      //     totelamount: "666",
-      //     transactionid: "alkjdsf 32234qwer",
-      //     wallatamount: "0",
-      //     tipcmt: "13");
-      // HomeController homeController = Get.find();
-      // print(homeController.dealList.length);
-      // }),
-      // bottomNavigationBar: GetBuilder<HomeController>(builder: (context) {
-      //   return hData.homeDataList["is_subscribe"] == 0
-      //       ? bottombar(
-      //           Hedingtext: "special prices only for you".tr.toUpperCase(),
-      //           bgcolor: transparent,
-      //           buttontext1: "select a plan".tr.toUpperCase(),
-      //           onTap: bottomsheet)
-      //       : SizedBox();
-      // }),
-      backgroundColor: notifier.background,
-      appBar: AppBar(
-          leadingWidth: 35,
-          elevation: 0,
-          backgroundColor: notifier.background,
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: GestureDetector(
-                onTap: () {
-                  Get.to(Profile());
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: orangeColor.withOpacity(.3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    "D",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: orangeColor),
-                  ),
-                ),
-              ),
-            )
-
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: InkWell(
-            //       onTap: () {
-            //         Get.to(() => Notificationpage());
-            //       },
-            //       child: Image.asset("assets/onesignal.png",
-            //           height: 20, color: orangeColor)),
-            // )
-          ],
-          leading: InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LocationOptionPage()));
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(left: 14),
-                child: Image.asset(
-                  "assets/livelocation.png",
-                  height: 15,
-                  color: orangeColor,
-                ),
-              )),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: Get.width * 0.64,
-                      child: Text(
-                        "My Place",
-                        style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 15),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(
-                      width: Get.width * 0.64,
-                      child: Text(
-                        "${hData.userAddress}",
-                        style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textLightColor, fontSize: 13),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          )),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return Future.delayed(
-            Duration(seconds: 2),
-            () {
-              hData.homeDataApi();
-            },
-          );
-        },
-        child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: GetBuilder<HomeController>(builder: (hData) {
-              // return Container(
-              //   child: Center(
-              //     child: Text("data"),
-              //   ),
-              // );
-              return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: hData.isLoading == true
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 50,
-                              width: size.width,
-                              child: SearchField(
-                                showSearchIcon: true,
-                                readOnly: true,
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
-                                },
-                              ),
-                            ),
-                            // banner section
-                            // banner section
-                            SizedBox(height: 8),
-                            Container(
-                              height: 200,
-                              width: size.width,
-                              // color: Colors.amber,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            // cate menu
-                            CategoryMenu(),
-
-                            SizedBox(height: 16),
-                            Container(
-                              child: Text(
-                                "IN THE LIMELIGHT",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            RelatedRestaurantsList(),
-
-                            SizedBox(height: 24),
-                            Container(
-                              child: Text(
-                                "WHAT ARE YOU LOOKING FOR?",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            LookingForList(),
-                            SizedBox(height: 24),
-                            Container(
-                              child: Text(
-                                "Must tries Deals".toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        for (var i = 0; i < hData.dealsCateList.length; i++)
-                                          MustTryItem(
-                                            data: hData.dealsCateList[i],
-                                            imageUrl:
-                                                "https://media.istockphoto.com/id/1079901206/photo/3d-render-of-luxury-restaurant-interior.jpg?s=1024x1024&w=is&k=20&c=PQmHArVArO8W1mTdl618qnyvbR4yOkhJgXzXVL7NszU=",
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Membership
-                                ? Column(
-                                    children: [
-                                      Text(provider.saved.tr, style: TextStyle(color: orangeColor, fontFamily: "Gilroy ExtraBold", fontSize: 20)),
-                                      Text(provider.days.tr, style: TextStyle(color: greycolor, fontFamily: "Gilroy Bold", fontSize: 16)),
-                                      SizedBox(height: Get.height * 0.02),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.to(() => ViewDetails());
-                                        },
-                                        child: Container(
-                                          width: Get.width * 0.32,
-                                          height: Get.height * 0.05,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(color: greycolor.withOpacity(0.5)), borderRadius: BorderRadius.circular(30)),
-                                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                            SizedBox(width: Get.width * 0.026),
-                                            Text(
-                                              provider.view.tr,
-                                              style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 14),
-                                            ),
-                                            Icon(
-                                              Icons.keyboard_arrow_right,
-                                              size: 20,
-                                              color: notifier.textColor,
-                                            )
-                                          ]),
-                                        ),
-                                      ),
-                                      SizedBox(height: Get.height * 0.02),
-                                      Row(
-                                        children: [
-                                          SizedBox(width: Get.width * 0.05),
-                                          Container(
-                                            height: Get.height * 0.04,
-                                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                                            width: Get.width * 0.2,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: RedColor),
-                                            child: Center(
-                                              child: Text(provider.Active.tr,
-                                                  style: TextStyle(fontFamily: "Gilroy Bold", color: orangeColor, fontSize: 10),
-                                                  textAlign: TextAlign.center),
-                                            ),
-                                          ),
-                                          SizedBox(width: Get.width * 0.015),
-                                          SizedBox(
-                                            width: Get.width * 0.65,
-                                            child: Text(
-                                              provider.membership.tr,
-                                              style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: Get.height * 0.03),
-                                      dottedline(),
-                                    ],
-                                  )
-                                : SizedBox(),
-                            SizedBox(height: Get.height * 0.03),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.center,
-                            //   children: [
-                            //     Image.asset(image.petals,
-                            //         height: 20, color: BlackColor),
-                            //     SizedBox(width: Get.width * 0.02),
-                            //     Text(
-                            //       provider.membershipBe.tr.toUpperCase(),
-                            //       style: TextStyle(
-                            //           fontFamily: "Gilroy Medium",
-                            //           color: greycolor,
-                            //           letterSpacing: 4,
-                            //           fontSize: 12),
-                            //     ),
-                            //     Image.asset(image.petals,
-                            //         height: 20, color: notifier.background),
-                            //     SizedBox(width: Get.width * 0.02),
-                            //   ],
-                            // ),
-                            // SizedBox(height: Get.height * 0.03),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Container(
-                                //   padding: EdgeInsets.symmetric(
-                                //       horizontal: 12, vertical: 12),
-                                //   decoration: BoxDecoration(
-                                //       border: Border.all(
-                                //           color: greycolor.withOpacity(0.5)),
-                                //       borderRadius: BorderRadius.circular(15)),
-                                //   child: Column(
-                                //     children: [
-                                //       Row(
-                                //         children: [
-                                //           Column(
-                                //             crossAxisAlignment:
-                                //                 CrossAxisAlignment.start,
-                                //             children: [
-                                //               SizedBox(
-                                //                 width: Get.width * 0.65,
-                                //                 child: Text(
-                                //                   provider.upto.tr,
-                                //                   style: TextStyle(
-                                //                       fontFamily: "Gilroy Bold",
-                                //                       color: notifier.textColor,
-                                //                       fontSize: 14),
-                                //                 ),
-                                //               ),
-                                //               Text(
-                                //                 provider.attop.tr,
-                                //                 style: TextStyle(
-                                //                     fontFamily: "Gilroy Medium",
-                                //                     color: greycolor,
-                                //                     fontSize: 12),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //           Image.asset(image.group2, height: 55),
-                                //         ],
-                                //       ),
-                                //       SizedBox(height: 4),
-                                //       InkWell(
-                                //         splashColor: transparent,
-                                //         onTap: () {
-                                //           // Get.to(() => Nearbyhotel());
-                                //         },
-                                //         child: Container(
-                                //           padding: EdgeInsets.symmetric(
-                                //               horizontal: 10, vertical: 6),
-                                //           decoration: BoxDecoration(
-                                //               border: Border.all(
-                                //                   color: greycolor
-                                //                       .withOpacity(0.5)),
-                                //               borderRadius:
-                                //                   BorderRadius.circular(15)),
-                                //           child: Row(
-                                //               mainAxisAlignment:
-                                //                   MainAxisAlignment
-                                //                       .spaceBetween,
-                                //               children: [
-                                //                 Row(
-                                //                   children: [
-                                //                     Image.asset(image.New,
-                                //                         height: 20),
-                                //                     SizedBox(
-                                //                         width:
-                                //                             Get.width * 0.04),
-                                //                     Text(
-                                //                       provider.explore.tr
-                                //                           .toUpperCase(),
-                                //                       style: TextStyle(
-                                //                           color: orangeColor,
-                                //                           fontFamily:
-                                //                               "Gilroy Bold",
-                                //                           fontSize: 13),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //                 CircleAvatar(
-                                //                   radius: 15,
-                                //                   backgroundColor: BlackColor,
-                                //                   backgroundImage:
-                                //                       AssetImage(image.deniout),
-                                //                 )
-                                //               ]),
-                                //         ),
-                                //       ),
-                                //       SizedBox(height: Get.height * 0.02),
-                                //       InkWell(
-                                //         onTap: () {
-                                //           Get.to(() => Nearbyhotel());
-                                //         },
-                                //         child: Container(
-                                //           padding: EdgeInsets.symmetric(
-                                //               horizontal: 10, vertical: 6),
-                                //           decoration: BoxDecoration(
-                                //               border: Border.all(
-                                //                   color: greycolor
-                                //                       .withOpacity(0.5)),
-                                //               borderRadius:
-                                //                   BorderRadius.circular(15)),
-                                //           child: Row(
-                                //               mainAxisAlignment:
-                                //                   MainAxisAlignment
-                                //                       .spaceBetween,
-                                //               children: [
-                                //                 Row(
-                                //                   children: [
-                                //                     Image.asset(image.New,
-                                //                         height: 20,
-                                //                         color: yelloColor),
-                                //                     SizedBox(
-                                //                         width:
-                                //                             Get.width * 0.04),
-                                //                     Text(
-                                //                       "book a table"
-                                //                           .tr
-                                //                           .toUpperCase(),
-                                //                       style: TextStyle(
-                                //                           color: yelloColor,
-                                //                           fontFamily:
-                                //                               "Gilroy Bold",
-                                //                           fontSize: 13),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //                 CircleAvatar(
-                                //                   radius: 15,
-                                //                   backgroundColor: yelloColor,
-                                //                   backgroundImage: AssetImage(
-                                //                       "assets/group3.png"),
-                                //                 )
-                                //               ]),
-                                //         ),
-                                //       )
-                                //     ],
-                                //   ),
-                                // ),
-                                SizedBox(height: Get.height * 0.02),
-                                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                  TredingRestaurantList(),
-                                  // SizedBox(height: Get.height * 0.04),
-
-                                  ExploreCuisinesMenu(),
-                                  // SizedBox(height: Get.height * 0.02),
-                                  RelatedRestaurantsList(
-                                    showTitle: true,
-                                  ),
-                                ]),
-                                SizedBox(height: Get.height * 0.02)
-                              ],
-                            ),
-                          ],
-                        )
-                      : Center(
-                          child: Padding(
-                          padding: EdgeInsets.only(top: Get.height * 0.4),
-                          child: CircularProgressIndi(),
-                        )));
-            })),
-      ),
-    );
   }
 
   webViewPaymentMethod({required String initialUrl, required String status1, required String status2}) {
@@ -1405,34 +929,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _validateInputs() {
-    final FormState form = _formKey.currentState!;
-    if (!form.validate()) {
-      setState(() {
-        _autoValidateMode = AutovalidateMode.always; // Start validating on every change.
-      });
-      showToastMessage("Please fix the errors in red before submitting.".tr);
-    } else {
-      var username = getData.read("UserLogin")["name"];
-      var email = getData.read("UserLogin")["email"];
-      _paymentCard.name = username;
-      _paymentCard.email = email;
-      _paymentCard.amount = currentTotalprice.toString();
-      form.save();
-
-      Get.to(() => StripePaymentWeb(paymentCard: _paymentCard))!.then((otid) {
-        Get.back();
-        //! order Api call
-        if (otid != null) {
-          //! Api Call Payment Success
-          planpurchase.planpurchase();
-        }
-      });
-
-      showToastMessage("Payment card is valid".tr);
-    }
-  }
-
   payplepayment({required Function onSuccess}) {
     return Navigator.of(context).push(MaterialPageRoute(
       builder: (context) {
@@ -1483,6 +979,508 @@ class _HomePageState extends State<HomePage> {
             });
       },
     ));
+  }
+
+  void _getCardTypeFrmNumber() {
+    String input = CardUtils.getCleanedNumber(numberController.text);
+    CardTypee cardType = CardUtils.getCardTypeFrmNumber(input);
+    setState(() {
+      _paymentCard.type = cardType;
+    });
+  }
+
+  void _validateInputs() {
+    final FormState form = _formKey.currentState!;
+    if (!form.validate()) {
+      setState(() {
+        _autoValidateMode = AutovalidateMode.always; // Start validating on every change.
+      });
+      showToastMessage("Please fix the errors in red before submitting.".tr);
+    } else {
+      var username = getData.read("UserLogin")["name"];
+      var email = getData.read("UserLogin")["email"];
+      _paymentCard.name = username;
+      _paymentCard.email = email;
+      _paymentCard.amount = currentTotalprice.toString();
+      form.save();
+
+      Get.to(() => StripePaymentWeb(paymentCard: _paymentCard))!.then((otid) {
+        Get.back();
+        //! order Api call
+        if (otid != null) {
+          //! Api Call Payment Success
+          planpurchase.planpurchase();
+        }
+      });
+
+      showToastMessage("Payment card is valid".tr);
+    }
+  }
+
+  // BottomBarController bottomBarController = Get.put(BottomBarController());
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    notifier = Provider.of<ColorNotifier>(context, listen: true);
+    Future.delayed(Duration(seconds: 0), () {
+      setState(() {});
+    });
+    // ignore: deprecated_member_use
+    return Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      // payment.paymentgatewaySuccessEmail();
+      // payment.paymentHistory(
+      //     discountamount: "12",
+      //     discountvalue: "15",
+      //     payedamount: "44",
+      //     paymentid: "a;dks23jlrqkwejr",
+      //     restid: "23",
+      //     tipamount: "12",
+      //     totelamount: "666",
+      //     transactionid: "alkjdsf 32234qwer",
+      //     wallatamount: "0",
+      //     tipcmt: "13");
+      // HomeController homeController = Get.find();
+      // print(homeController.dealList.length);
+      // }),
+      // bottomNavigationBar: GetBuilder<HomeController>(builder: (context) {
+      //   return hData.homeDataList["is_subscribe"] == 0
+      //       ? bottombar(
+      //           Hedingtext: "special prices only for you".tr.toUpperCase(),
+      //           bgcolor: transparent,
+      //           buttontext1: "select a plan".tr.toUpperCase(),
+      //           onTap: bottomsheet)
+      //       : SizedBox();
+      // }),
+      backgroundColor: notifier.background,
+      appBar: AppBar(
+          leadingWidth: 35,
+          elevation: 0,
+          backgroundColor: notifier.background,
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(Profile());
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: orangeColor.withOpacity(.3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    "D",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: orangeColor),
+                  ),
+                ),
+              ),
+            )
+
+            // Padding(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: InkWell(
+            //       onTap: () {
+            //         Get.to(() => Notificationpage());
+            //       },
+            //       child: Image.asset("assets/onesignal.png",
+            //           height: 20, color: orangeColor)),
+            // )
+          ],
+          leading: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LocationOptionPage()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 14),
+                child: Image.asset(
+                  "assets/livelocation.png",
+                  height: 15,
+                  color: orangeColor,
+                ),
+              )),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: Get.width * 0.64,
+                      child: Text(
+                        "My Place",
+                        style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    SizedBox(
+                      width: Get.width * 0.64,
+                      child: Text(
+                        "${hData.userAddress}",
+                        style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textLightColor, fontSize: 13),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(
+            Duration(seconds: 2),
+            () {
+              hData.homeDataApi();
+            },
+          );
+        },
+        child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: GetBuilder<HomeController>(builder: (hData) {
+              // return Container(
+              //   child: Center(
+              //     child: Text("data"),
+              //   ),
+              // );
+              return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: hData.isLoading == true
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: size.width,
+                              child: SearchField(
+                                showSearchIcon: true,
+                                readOnly: true,
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
+                                },
+                              ),
+                            ),
+                            // banner section
+                            // banner section
+                            SizedBox(height: 8),
+                            Container(
+                              height: 200,
+                              width: size.width,
+                              // color: Colors.amber,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            // cate menu
+                            CategoryMenu(),
+
+                            SizedBox(height: 16),
+                            Container(
+                              child: Text(
+                                "IN THE LIMELIGHT",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            RelatedRestaurantsList(),
+
+                            SizedBox(height: 24),
+                            Container(
+                              child: Text(
+                                "WHAT ARE YOU LOOKING FOR?",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            LookingForList(),
+                            SizedBox(height: 24),
+                            Container(
+                              child: Text(
+                                "Must tries Deals".toUpperCase(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.grey, letterSpacing: 2),
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: BouncingScrollPhysics(),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        for (var i = 0; i < hData.dealsCateList.length; i++)
+                                          MustTryItem(
+                                            data: hData.dealsCateList[i],
+                                            imageUrl:
+                                                "https://media.istockphoto.com/id/1079901206/photo/3d-render-of-luxury-restaurant-interior.jpg?s=1024x1024&w=is&k=20&c=PQmHArVArO8W1mTdl618qnyvbR4yOkhJgXzXVL7NszU=",
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Membership
+                                ? Column(
+                                    children: [
+                                      Text(provider.saved.tr, style: TextStyle(color: orangeColor, fontFamily: "Gilroy ExtraBold", fontSize: 20)),
+                                      Text(provider.days.tr, style: TextStyle(color: greycolor, fontFamily: "Gilroy Bold", fontSize: 16)),
+                                      SizedBox(height: Get.height * 0.02),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => ViewDetails());
+                                        },
+                                        child: Container(
+                                          width: Get.width * 0.32,
+                                          height: Get.height * 0.05,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(color: greycolor.withOpacity(0.5)), borderRadius: BorderRadius.circular(30)),
+                                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                            SizedBox(width: Get.width * 0.026),
+                                            Text(
+                                              provider.view.tr,
+                                              style: TextStyle(fontFamily: "Gilroy Bold", color: notifier.textColor, fontSize: 14),
+                                            ),
+                                            Icon(
+                                              Icons.keyboard_arrow_right,
+                                              size: 20,
+                                              color: notifier.textColor,
+                                            )
+                                          ]),
+                                        ),
+                                      ),
+                                      SizedBox(height: Get.height * 0.02),
+                                      Row(
+                                        children: [
+                                          SizedBox(width: Get.width * 0.05),
+                                          Container(
+                                            height: Get.height * 0.04,
+                                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                                            width: Get.width * 0.2,
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: RedColor),
+                                            child: Center(
+                                              child: Text(provider.Active.tr,
+                                                  style: TextStyle(fontFamily: "Gilroy Bold", color: orangeColor, fontSize: 10),
+                                                  textAlign: TextAlign.center),
+                                            ),
+                                          ),
+                                          SizedBox(width: Get.width * 0.015),
+                                          SizedBox(
+                                            width: Get.width * 0.65,
+                                            child: Text(
+                                              provider.membership.tr,
+                                              style: TextStyle(fontFamily: "Gilroy Medium", color: greycolor, fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: Get.height * 0.03),
+                                      dottedline(),
+                                    ],
+                                  )
+                                : SizedBox(),
+                            SizedBox(height: Get.height * 0.03),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Image.asset(image.petals,
+                            //         height: 20, color: BlackColor),
+                            //     SizedBox(width: Get.width * 0.02),
+                            //     Text(
+                            //       provider.membershipBe.tr.toUpperCase(),
+                            //       style: TextStyle(
+                            //           fontFamily: "Gilroy Medium",
+                            //           color: greycolor,
+                            //           letterSpacing: 4,
+                            //           fontSize: 12),
+                            //     ),
+                            //     Image.asset(image.petals,
+                            //         height: 20, color: notifier.background),
+                            //     SizedBox(width: Get.width * 0.02),
+                            //   ],
+                            // ),
+                            // SizedBox(height: Get.height * 0.03),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Container(
+                                //   padding: EdgeInsets.symmetric(
+                                //       horizontal: 12, vertical: 12),
+                                //   decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //           color: greycolor.withOpacity(0.5)),
+                                //       borderRadius: BorderRadius.circular(15)),
+                                //   child: Column(
+                                //     children: [
+                                //       Row(
+                                //         children: [
+                                //           Column(
+                                //             crossAxisAlignment:
+                                //                 CrossAxisAlignment.start,
+                                //             children: [
+                                //               SizedBox(
+                                //                 width: Get.width * 0.65,
+                                //                 child: Text(
+                                //                   provider.upto.tr,
+                                //                   style: TextStyle(
+                                //                       fontFamily: "Gilroy Bold",
+                                //                       color: notifier.textColor,
+                                //                       fontSize: 14),
+                                //                 ),
+                                //               ),
+                                //               Text(
+                                //                 provider.attop.tr,
+                                //                 style: TextStyle(
+                                //                     fontFamily: "Gilroy Medium",
+                                //                     color: greycolor,
+                                //                     fontSize: 12),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //           Image.asset(image.group2, height: 55),
+                                //         ],
+                                //       ),
+                                //       SizedBox(height: 4),
+                                //       InkWell(
+                                //         splashColor: transparent,
+                                //         onTap: () {
+                                //           // Get.to(() => Nearbyhotel());
+                                //         },
+                                //         child: Container(
+                                //           padding: EdgeInsets.symmetric(
+                                //               horizontal: 10, vertical: 6),
+                                //           decoration: BoxDecoration(
+                                //               border: Border.all(
+                                //                   color: greycolor
+                                //                       .withOpacity(0.5)),
+                                //               borderRadius:
+                                //                   BorderRadius.circular(15)),
+                                //           child: Row(
+                                //               mainAxisAlignment:
+                                //                   MainAxisAlignment
+                                //                       .spaceBetween,
+                                //               children: [
+                                //                 Row(
+                                //                   children: [
+                                //                     Image.asset(image.New,
+                                //                         height: 20),
+                                //                     SizedBox(
+                                //                         width:
+                                //                             Get.width * 0.04),
+                                //                     Text(
+                                //                       provider.explore.tr
+                                //                           .toUpperCase(),
+                                //                       style: TextStyle(
+                                //                           color: orangeColor,
+                                //                           fontFamily:
+                                //                               "Gilroy Bold",
+                                //                           fontSize: 13),
+                                //                     ),
+                                //                   ],
+                                //                 ),
+                                //                 CircleAvatar(
+                                //                   radius: 15,
+                                //                   backgroundColor: BlackColor,
+                                //                   backgroundImage:
+                                //                       AssetImage(image.deniout),
+                                //                 )
+                                //               ]),
+                                //         ),
+                                //       ),
+                                //       SizedBox(height: Get.height * 0.02),
+                                //       InkWell(
+                                //         onTap: () {
+                                //           Get.to(() => Nearbyhotel());
+                                //         },
+                                //         child: Container(
+                                //           padding: EdgeInsets.symmetric(
+                                //               horizontal: 10, vertical: 6),
+                                //           decoration: BoxDecoration(
+                                //               border: Border.all(
+                                //                   color: greycolor
+                                //                       .withOpacity(0.5)),
+                                //               borderRadius:
+                                //                   BorderRadius.circular(15)),
+                                //           child: Row(
+                                //               mainAxisAlignment:
+                                //                   MainAxisAlignment
+                                //                       .spaceBetween,
+                                //               children: [
+                                //                 Row(
+                                //                   children: [
+                                //                     Image.asset(image.New,
+                                //                         height: 20,
+                                //                         color: yelloColor),
+                                //                     SizedBox(
+                                //                         width:
+                                //                             Get.width * 0.04),
+                                //                     Text(
+                                //                       "book a table"
+                                //                           .tr
+                                //                           .toUpperCase(),
+                                //                       style: TextStyle(
+                                //                           color: yelloColor,
+                                //                           fontFamily:
+                                //                               "Gilroy Bold",
+                                //                           fontSize: 13),
+                                //                     ),
+                                //                   ],
+                                //                 ),
+                                //                 CircleAvatar(
+                                //                   radius: 15,
+                                //                   backgroundColor: yelloColor,
+                                //                   backgroundImage: AssetImage(
+                                //                       "assets/group3.png"),
+                                //                 )
+                                //               ]),
+                                //         ),
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
+                                SizedBox(height: Get.height * 0.02),
+                                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                  TredingRestaurantList(),
+                                  // SizedBox(height: Get.height * 0.04),
+
+                                  ExploreCuisinesMenu(),
+                                  // SizedBox(height: Get.height * 0.02),
+                                  RelatedRestaurantsList(
+                                    showTitle: true,
+                                  ),
+                                ]),
+                                SizedBox(height: Get.height * 0.02)
+                              ],
+                            ),
+                          ],
+                        )
+                      : Center(
+                          child: Padding(
+                          padding: EdgeInsets.only(top: Get.height * 0.4),
+                          child: CircularProgressIndi(),
+                        )));
+            })),
+      ),
+    );
   }
 }
 

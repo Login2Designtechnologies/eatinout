@@ -403,7 +403,7 @@ class _LocationOptionPageState extends State<LocationOptionPage> {
                                         Icons.arrow_forward_ios_rounded,
                                         color: Colors.grey[500],
                                         size: 16,
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ))
